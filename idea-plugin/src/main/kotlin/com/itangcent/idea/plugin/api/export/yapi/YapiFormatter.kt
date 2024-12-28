@@ -2,6 +2,7 @@ package com.itangcent.idea.plugin.api.export.yapi
 
 import com.google.inject.Inject
 import com.google.inject.Singleton
+import com.intellij.openapi.module.ModuleUtil
 import com.intellij.psi.PsiMethod
 import com.itangcent.common.constant.Attrs
 import com.itangcent.common.kit.KVUtils
@@ -10,6 +11,7 @@ import com.itangcent.common.model.*
 import com.itangcent.common.utils.*
 import com.itangcent.idea.plugin.api.export.UrlSelector
 import com.itangcent.idea.plugin.api.export.core.ClassExportRuleKeys
+import com.itangcent.idea.plugin.api.export.core.FormatFolderHelper
 import com.itangcent.idea.plugin.format.Json5Formatter
 import com.itangcent.idea.plugin.render.MarkdownRender
 import com.itangcent.idea.plugin.rule.SuvRuleContext
@@ -18,6 +20,7 @@ import com.itangcent.idea.plugin.settings.helper.YapiSettingsHelper
 import com.itangcent.idea.psi.resource
 import com.itangcent.idea.psi.resourceMethod
 import com.itangcent.idea.utils.SystemProvider
+import com.itangcent.intellij.adaptor.ModuleAdaptor.filePath
 import com.itangcent.intellij.config.ConfigReader
 import com.itangcent.intellij.config.rule.RuleComputer
 import com.itangcent.intellij.config.rule.SimpleRuleParser
@@ -30,6 +33,9 @@ import com.itangcent.intellij.psi.PsiClassUtils
 import com.itangcent.intellij.tip.OnlyOnceInContextTip
 import com.itangcent.intellij.tip.TipsHelper
 import com.itangcent.intellij.util.forEachValid
+import java.io.BufferedInputStream
+import java.io.File
+import java.io.FileInputStream
 import java.util.*
 import java.util.regex.Pattern
 
@@ -63,6 +69,9 @@ open class YapiFormatter {
     @Inject
     protected lateinit var urlSelector: UrlSelector
 
+    @Inject
+    protected lateinit var formatFolderHelper: FormatFolderHelper
+
     protected val json5Formatter: Json5Formatter by lazy {
         actionContext.instance(Json5Formatter::class)
     }
@@ -93,7 +102,10 @@ open class YapiFormatter {
 
         item["title"] = methodDoc.name
 
+        item["markdown"] = appendMarkdown(methodDoc)
+
         appendDescToApiItem(item, methodDoc.desc)
+
 
         val queryPath: HashMap<String, Any?> = HashMap()
         item["query_path"] = queryPath
@@ -293,6 +305,9 @@ open class YapiFormatter {
 
         item["title"] = request.name
 
+        val markdown = appendMarkdown(request)
+        item["markdown"] = markdown;
+
         appendDescToApiItem(item, request.desc)
 
         val queryPath: HashMap<String, Any?> = HashMap()
@@ -400,6 +415,48 @@ open class YapiFormatter {
         }
 
         return item
+    }
+
+    /**
+     * 找到对应方法的Markdown文件
+     */
+    private fun appendMarkdown(doc: Doc): String? {
+        val element = doc.resource()
+        val basePath = element!!.project.basePath
+        val module = ModuleUtil.findModuleForPsiElement(element)
+        val modulePath = module!!.filePath();
+
+        val folder = formatFolderHelper!!.resolveFolder(doc.resource!!)
+        var markdownDocs = "docs/api";
+        val markdownDir = folder.name!!.replace("-", "/")
+        val file = File("$modulePath/$markdownDocs/$markdownDir/${doc.name}.md")
+        if(!file.exists()){
+            return null
+        }
+        val markdown = FileUtils.read(file)
+
+        val newMarkdown = markdown!!.split("\n").stream()
+            .map {
+                if (it.trim().startsWith("![")) {
+                    // 图片 ![]()
+                    val start = it.indexOf("(");
+                    val end = it.indexOf(")");
+                    val imageFile = it.substring(start + 1, end)
+                    logger.info("image line: $it, imageFile=$imageFile")
+
+                    val bytes = BufferedInputStream(FileInputStream("$modulePath/$markdownDocs/$markdownDir/$imageFile")).readBytes()
+                    val imageBase64 = Base64.getEncoder().encodeToString(bytes)
+                    val newImageLine = it.substring(0, start) + "(data:image/png;base64," + imageBase64 + ")"
+                    return@map newImageLine
+
+                } else {
+                    return@map it;
+                }
+            }
+            .joinToString("\n")
+
+        logger.info("Markdown: basePath=$basePath, modulePath=$modulePath, file=${file.absolutePath}");
+        return newMarkdown
     }
 
     fun item2Request(item: HashMap<String, Any?>): Request {
@@ -871,7 +928,7 @@ open class YapiFormatter {
             item["desc"] = markdownRender.render(desc) ?: "<p>$desc</p>"
         } else {
             item["markdown"] = "$existedDesc\n$desc"
-            item["desc"] = markdownRender.render(desc) ?: "<p>$existedDesc\n$desc</p>"
+            item["desc"] = markdownRender.render(existedDesc.toString()) ?: "<p>$existedDesc\n$desc</p>"
         }
     }
 

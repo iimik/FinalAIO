@@ -69,7 +69,8 @@ open class ApiHelper {
     }
 
     fun nameAndAttrOfApi(
-        explicitMethod: ExplicitMethod, nameHandle: (String) -> Unit,
+        explicitMethod: ExplicitMethod,
+        nameHandle: (String) -> Unit,
         attrHandle: (String) -> Unit
     ) {
         var named = false

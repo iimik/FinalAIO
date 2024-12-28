@@ -130,7 +130,7 @@ class EnhancedConfigReader : BaseConfigReader() {
                     configContents.add(configContent)
                 }
             } catch (e: Throwable) {
-                logger.traceError("failed to load config", e)
+                logger.traceError("加载配置失败: ${e.message}", e)
             }
         }
         return configContents

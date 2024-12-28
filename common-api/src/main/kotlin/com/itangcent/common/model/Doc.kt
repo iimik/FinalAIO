@@ -19,6 +19,11 @@ open class Doc : SimpleExtensible(), Serializable {
     var name: String? = null
 
     /**
+     * Returns the markdown of the doc.
+     */
+    var markdown: String? = null
+
+    /**
      * Returns the description of the doc.
      * Explain what this document represented in a human readable way.
      */

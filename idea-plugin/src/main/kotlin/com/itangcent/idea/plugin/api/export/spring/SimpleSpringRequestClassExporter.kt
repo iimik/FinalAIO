@@ -103,6 +103,10 @@ open class SimpleSpringRequestClassExporter : ClassExporter {
 
     private fun exportMethodApi(psiClass: PsiClass, method: PsiMethod, docHandle: DocHandle) {
 
+        val basePath = psiClass.project.basePath
+        logger!!.info("basePath: $basePath")
+
+
         actionContext.checkStatus()
         //todo:support other web annotation
         findRequestMappingInAnn(method) ?: return
