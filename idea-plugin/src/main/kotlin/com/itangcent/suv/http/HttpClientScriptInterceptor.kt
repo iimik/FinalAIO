@@ -61,7 +61,7 @@ object HttpClientScriptInterceptor : MethodInterceptor {
         if (invocation.method.returnType == HttpClient::class.java) {
             return (invocation.proceed() as HttpClient).wrap()
         }
-        return invocation.proceed()
+        return invocation.proceed()!!
     }
 
     /**

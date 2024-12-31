@@ -16,6 +16,7 @@ import com.itangcent.idea.plugin.api.export.core.ApiHelper
 import com.itangcent.idea.plugin.api.export.core.ClassExportRuleKeys
 import com.itangcent.idea.plugin.api.export.core.ClassExporter
 import com.itangcent.idea.plugin.api.export.core.DocHandle
+import com.itangcent.idea.plugin.dialog.getContainingClass
 import com.itangcent.idea.psi.PsiMethodResource
 import com.itangcent.intellij.config.rule.RuleComputer
 import com.itangcent.intellij.context.ActionContext
@@ -62,32 +63,41 @@ open class SimpleSpringRequestClassExporter : ClassExporter {
     protected var apiHelper: ApiHelper? = null
 
     override fun export(cls: Any, docHandle: DocHandle): Boolean {
-        if (cls !is PsiClass) {
+        if (cls !is PsiClass || cls !is PsiMethod) {
             return false
         }
-        val clsQualifiedName = actionContext.callInReadUI { cls.qualifiedName }
-        try {
-            when {
-                !isCtrl(cls) -> {
 
-                    return false
-                }
-                shouldIgnore(cls) -> {
-                    logger!!.info("ignore class: $clsQualifiedName")
-                    return true
-                }
-                else -> {
-                    logger!!.info("search api from: $clsQualifiedName")
+        if(cls is PsiClass) {
+            val clsQualifiedName = actionContext.callInReadUI { cls.qualifiedName }
+            try {
+                when {
+                    !isCtrl(cls) -> {
+
+                        return false
+                    }
+                    shouldIgnore(cls) -> {
+                        logger!!.info("ignore class: $clsQualifiedName")
+                        return true
+                    }
+                    else -> {
+                        logger!!.info("search api from: $clsQualifiedName")
 
 
-                    classApiExporterHelper.foreachPsiMethod(cls) { method ->
-                        exportMethodApi(cls, method, docHandle)
+                        classApiExporterHelper.foreachPsiMethod(cls) { method ->
+                            exportMethodApi(cls, method, docHandle)
+                        }
                     }
                 }
+            } catch (e: Exception) {
+                logger!!.traceError(e)
             }
-        } catch (e: Exception) {
-            logger!!.traceError(e)
+        }else if(cls is PsiMethod){
+
+            logger!!.info("export ${cls.qualifiedName}")
+
+            exportMethodApi(cls.getContainingClass() as PsiClass, cls, docHandle)
         }
+
         return true
     }
 

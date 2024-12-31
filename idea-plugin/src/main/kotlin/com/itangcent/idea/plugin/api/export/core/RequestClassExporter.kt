@@ -17,6 +17,7 @@ import com.itangcent.idea.plugin.api.MethodInferHelper
 import com.itangcent.idea.plugin.api.export.condition.ConditionOnDoc
 import com.itangcent.idea.plugin.api.export.rule.RequestRuleWrap
 import com.itangcent.idea.plugin.api.export.spring.SpringClassName
+import com.itangcent.idea.plugin.dialog.getContainingClass
 import com.itangcent.idea.plugin.settings.helper.IntelligentSettingsHelper
 import com.itangcent.idea.psi.PsiMethodResource
 import com.itangcent.idea.psi.PsiMethodSet
@@ -107,13 +108,15 @@ abstract class RequestClassExporter : ClassExporter {
     protected lateinit var commentResolver: CommentResolver
 
     override fun export(cls: Any, docHandle: DocHandle): Boolean {
-        if (cls !is PsiClass) {
-            return false
+        if (cls is PsiClass) {
+        return doExport(cls, null,  docHandle)
+        }else if(cls is PsiMethod){
+            return doExport(cls.getContainingClass() as PsiClass, cls, docHandle)
         }
-        return doExport(cls, docHandle)
+        return false
     }
 
-    private fun doExport(cls: PsiClass, docHandle: DocHandle): Boolean {
+    private fun doExport(cls: PsiClass, psiMethod: PsiMethod?, docHandle: DocHandle): Boolean {
 
         contextSwitchListener?.switchTo(cls)
 
@@ -142,17 +145,20 @@ abstract class RequestClassExporter : ClassExporter {
                 val psiMethodSet = PsiMethodSet()
                 classApiExporterHelper.foreachMethod(cls) { explicitMethod ->
                     val method = explicitMethod.psi()
-                    if (isApi(method)
-                        && methodFilter?.checkMethod(method) != false
-                        && psiMethodSet.add(method)
-                    ) {
-                        try {
-                            ruleComputer.computer(ClassExportRuleKeys.API_METHOD_PARSE_BEFORE, explicitMethod)
-                            exportMethodApi(cls, explicitMethod, classExportContext, docHandle)
-                        } catch (e: Exception) {
-                            logger.traceError("error to export api from method:" + method.name, e)
-                        } finally {
-                            ruleComputer.computer(ClassExportRuleKeys.API_METHOD_PARSE_AFTER, explicitMethod)
+
+                    if(psiMethod == null || psiMethod == method) {
+                        if (isApi(method)
+                            && methodFilter?.checkMethod(method) != false
+                            && psiMethodSet.add(method)
+                        ) {
+                            try {
+                                ruleComputer.computer(ClassExportRuleKeys.API_METHOD_PARSE_BEFORE, explicitMethod)
+                                exportMethodApi(cls, explicitMethod, classExportContext, docHandle)
+                            } catch (e: Exception) {
+                                logger.traceError("error to export api from method:" + method.name, e)
+                            } finally {
+                                ruleComputer.computer(ClassExportRuleKeys.API_METHOD_PARSE_AFTER, explicitMethod)
+                            }
                         }
                     }
                 }

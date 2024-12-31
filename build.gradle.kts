@@ -6,6 +6,7 @@ plugins {
     `java-library`
 }
 
+
 subprojects {
     plugins.apply("java")
     plugins.apply("kotlin")

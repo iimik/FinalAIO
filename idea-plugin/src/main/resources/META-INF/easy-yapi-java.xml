@@ -79,6 +79,8 @@
         <group id="EasyApiGenerateMenu" text="EasyApi" description="EasyApiGenerateMenu"
                popup="true">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
+            <action class="org.ifinalframework.api.idea.action.FinalApiExportAction"
+                    id="org.ifinalframework.api.idea.action.FinalApiExportAction"/>
             <reference ref="EasyApiExportGroup"/>
             <reference ref="EasyApiFieldsGroup"/>
         </group>

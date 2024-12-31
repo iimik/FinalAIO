@@ -2,6 +2,7 @@ package com.itangcent.idea.plugin.api.export.yapi
 
 import com.google.inject.Inject
 import com.intellij.openapi.ui.Messages
+import com.intellij.psi.PsiElement
 import com.intellij.util.containers.ContainerUtil
 import com.itangcent.common.logger.traceError
 import com.itangcent.common.model.Doc
@@ -27,6 +28,14 @@ class YapiApiExporter : AbstractYapiApiExporter() {
         if (serverFound) {
             doExport()
         }
+    }
+
+    fun export(element: PsiElement) {
+
+        classExporter!!.export(
+            element,
+            docHandle = this::exportDoc
+        )
     }
 
     private fun doExport() {

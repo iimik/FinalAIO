@@ -1,7 +1,10 @@
 package com.itangcent.idea.plugin.actions
 
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
 import com.itangcent.idea.plugin.api.export.ExportChannel
 import com.itangcent.idea.plugin.api.export.ExportDoc
 import com.itangcent.idea.plugin.api.export.core.*
@@ -47,7 +50,9 @@ class YapiExportAction : ApiExportAction("Export Yapi") {
 
     override fun actionPerformed(actionContext: ActionContext, project: Project?, anActionEvent: AnActionEvent) {
         super.actionPerformed(actionContext, project, anActionEvent)
-        actionContext.instance(YapiApiExporter::class).export()
+
+        val element =  anActionEvent.getData(CommonDataKeys.PSI_ELEMENT)
+        actionContext.instance(YapiApiExporter::class).export(element!!)
     }
 
 }
