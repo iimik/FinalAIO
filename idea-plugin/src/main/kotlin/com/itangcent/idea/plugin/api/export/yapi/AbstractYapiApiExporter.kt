@@ -6,15 +6,18 @@ import com.itangcent.common.model.Doc
 import com.itangcent.idea.plugin.api.export.core.ClassExporter
 import com.itangcent.idea.plugin.api.export.core.Folder
 import com.itangcent.idea.plugin.api.export.core.FormatFolderHelper
+import com.itangcent.idea.plugin.config.EnhancedConfigReader
 import com.itangcent.idea.plugin.rule.SuvRuleContext
 import com.itangcent.idea.plugin.rule.setDoc
 import com.itangcent.idea.plugin.settings.SettingBinder
 import com.itangcent.idea.plugin.settings.helper.YapiSettingsHelper
 import com.itangcent.idea.psi.resource
 import com.itangcent.idea.utils.ModuleHelper
+import com.itangcent.intellij.config.ConfigReader
 import com.itangcent.intellij.config.rule.RuleComputer
 import com.itangcent.intellij.context.ActionContext
 import com.itangcent.intellij.logger.Logger
+import org.ifinalframework.api.config.YapiConfigConstants
 
 
 open class AbstractYapiApiExporter {
@@ -52,6 +55,9 @@ open class AbstractYapiApiExporter {
     @Inject
     protected lateinit var ruleComputer: RuleComputer
 
+    @Inject
+    protected lateinit var configReader: ConfigReader
+
     /**
      * Get the token of the special module.
      * see https://hellosean1025.github.io/yapi/documents/project.html#token
@@ -59,7 +65,15 @@ open class AbstractYapiApiExporter {
      * see https://hellosean1025.github.io/yapi/openapi.html
      */
     protected open fun getTokenOfModule(module: String): String? {
-        return yapiSettingsHelper.getPrivateToken(module, false)
+        val token = configReader.first(YapiConfigConstants.TOKEN);
+
+        if(token.isNullOrBlank()){
+            logger.warn("Yapi token is missing in module $module")
+        }
+
+        return token;
+
+//        return yapiSettingsHelper.getPrivateToken(module, false)
     }
 
     protected open fun getCartForResource(resource: Any): CartInfo? {

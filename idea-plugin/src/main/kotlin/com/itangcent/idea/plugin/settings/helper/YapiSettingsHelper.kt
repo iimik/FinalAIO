@@ -49,6 +49,9 @@ class YapiSettingsHelper {
         return getServer().notNullOrEmpty()
     }
 
+    /**
+     * 获取服务URL
+     */
     fun getServer(dumb: Boolean = true): String? {
         if (server.notNullOrBlank()) return server
         configReader.first("yapi.server")?.trim()?.removeSuffix("/")

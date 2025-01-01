@@ -9,6 +9,7 @@ import com.itangcent.common.model.Doc
 import com.itangcent.common.utils.notNullOrBlank
 import com.itangcent.idea.plugin.api.ClassApiExporterHelper
 import com.itangcent.idea.plugin.api.export.core.Folder
+import com.itangcent.idea.plugin.config.EnhancedConfigReader
 import com.itangcent.idea.swing.MessagesHelper
 import com.itangcent.intellij.extend.withBoundary
 import com.itangcent.intellij.psi.SelectedHelper
@@ -19,6 +20,9 @@ import kotlin.collections.set
 
 
 class YapiApiExporter : AbstractYapiApiExporter() {
+
+    @Inject
+    private lateinit var enhancedConfigReader: EnhancedConfigReader
 
     @Inject
     private lateinit var classApiExporterHelper: ClassApiExporterHelper
