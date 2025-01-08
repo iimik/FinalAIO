@@ -109,8 +109,8 @@ abstract class RequestClassExporter : ClassExporter {
 
     override fun export(cls: Any, docHandle: DocHandle): Boolean {
         if (cls is PsiClass) {
-        return doExport(cls, null,  docHandle)
-        }else if(cls is PsiMethod){
+            return doExport(cls, null, docHandle)
+        } else if (cls is PsiMethod) {
             return doExport(cls.getContainingClass() as PsiClass, cls, docHandle)
         }
         return false
@@ -146,7 +146,7 @@ abstract class RequestClassExporter : ClassExporter {
                 classApiExporterHelper.foreachMethod(cls) { explicitMethod ->
                     val method = explicitMethod.psi()
 
-                    if(psiMethod == null || psiMethod == method) {
+                    if (psiMethod == null || psiMethod == method) {
                         if (isApi(method)
                             && methodFilter?.checkMethod(method) != false
                             && psiMethodSet.add(method)
@@ -515,9 +515,10 @@ abstract class RequestClassExporter : ClassExporter {
                         continue
                     }
 
-                    parsedParams.add(ParameterExportContext(methodExportContext, param)
-                        .adaptive()
-                        .also { it.originalReturnObject() }
+                    parsedParams.add(
+                        ParameterExportContext(methodExportContext, param)
+                            .adaptive()
+                            .also { it.originalReturnObject() }
                     )
                 } finally {
                     ruleComputer.computer(ClassExportRuleKeys.API_PARAM_AFTER, param)
@@ -806,7 +807,7 @@ abstract class RequestClassExporter : ClassExporter {
             )
 
             this.intelligentSettingsHelper.inferEnable() && !duckTypeHelper.isQualified(duckType)
-            -> {
+                -> {
                 logger.info("try infer return type of method[" + PsiClassUtils.fullNameOfMethod(method.psi()) + "]")
                 methodReturnInferHelper!!.inferReturn(method.psi())
 //                actionContext!!.callWithTimeout(20000) { methodReturnInferHelper.inferReturn(method) }

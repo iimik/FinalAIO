@@ -183,6 +183,9 @@ open class ClassApiExporterHelper {
         }
     }
 
+    /**
+     * 导出文档
+     */
     fun export(): List<Doc> {
         val docs: MutableList<Doc> = Collections.synchronizedList(ArrayList())
         export { docs.add(it) }

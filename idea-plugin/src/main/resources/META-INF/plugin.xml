@@ -1,8 +1,8 @@
 <idea-plugin>
-    <id>com.itangcent.idea.plugin.easy-yapi</id>
-    <name>EasyYapi</name>
+    <id>org.ifinalframework.plugins.final-api</id>
+    <name>Final Api</name>
     <version>2.7.4.212.0</version>
-    <vendor email="pentatangcent@gmail.com" url="https://github.com/tangcent">Tangcent</vendor>
+    <vendor email="iimik@qq.com" url="https://github.com/iimik">米克¹²³</vendor>
 
     <description><![CDATA[ Description will be added by gradle build]]></description>
 
@@ -25,4 +25,7 @@
 
     <depends optional="true" config-file="easy-api-kotlin.xml">org.jetbrains.kotlin</depends>
     <depends optional="true" config-file="easy-api-scala.xml">org.intellij.scala</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup displayType="BALLOON" id="Final Api Group"/>
+    </extensions>
 </idea-plugin>

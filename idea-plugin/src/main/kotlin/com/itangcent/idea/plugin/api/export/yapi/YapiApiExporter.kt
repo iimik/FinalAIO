@@ -1,28 +1,21 @@
 package com.itangcent.idea.plugin.api.export.yapi
 
 import com.google.inject.Inject
-import com.intellij.openapi.ui.Messages
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
+import com.intellij.notification.Notifications
 import com.intellij.psi.PsiElement
 import com.intellij.util.containers.ContainerUtil
-import com.itangcent.common.logger.traceError
 import com.itangcent.common.model.Doc
 import com.itangcent.common.utils.notNullOrBlank
 import com.itangcent.idea.plugin.api.ClassApiExporterHelper
 import com.itangcent.idea.plugin.api.export.core.Folder
-import com.itangcent.idea.plugin.config.EnhancedConfigReader
-import com.itangcent.idea.swing.MessagesHelper
-import com.itangcent.intellij.extend.withBoundary
-import com.itangcent.intellij.psi.SelectedHelper
-import com.itangcent.intellij.util.ActionUtils
-import com.itangcent.intellij.util.FileType
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.collections.set
 
 
 class YapiApiExporter : AbstractYapiApiExporter() {
-
-    @Inject
-    private lateinit var enhancedConfigReader: EnhancedConfigReader
 
     @Inject
     private lateinit var classApiExporterHelper: ClassApiExporterHelper
@@ -34,12 +27,15 @@ class YapiApiExporter : AbstractYapiApiExporter() {
         }
     }
 
-    fun export(element: PsiElement) {
+    fun export(element: PsiElement):List<Doc> {
 
+        val docs: MutableList<Doc> = Collections.synchronizedList(ArrayList())
         classExporter!!.export(
             element,
-            docHandle = this::exportDoc
+            docHandle = docs::add
         )
+        return docs;
+
     }
 
     private fun doExport() {
