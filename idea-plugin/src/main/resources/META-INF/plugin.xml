@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>org.ifinalframework.plugins.final-api</id>
     <name>Final Api</name>
-    <version>2.7.4.212.0</version>
+    <version>0.0.1-beta</version>
     <vendor email="iimik@qq.com" url="https://github.com/iimik">米克¹²³</vendor>
 
     <description><![CDATA[ Description will be added by gradle build]]></description>
