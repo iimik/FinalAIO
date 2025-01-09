@@ -1,3 +1,14 @@
+# Final Api
+
+基于[easy-yapi](https://github.com/tangcent/easy-yapi)插件开发，增加定制功能。
+
+## Features
+
+* 支持编写`Markdown`文档并在导出时作为接口描述文件导出。
+* 在`Controller`的`Method`的方法上增加`Open Markdown`入口，可快速打开`Markdown`文件
+
+---
+
 # easy-yapi
 
 [![CI](https://github.com/tangcent/easy-yapi/actions/workflows/ci.yml/badge.svg)](https://github.com/tangcent/easy-yapi/actions/workflows/ci.yml)
