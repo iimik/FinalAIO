@@ -39,16 +39,20 @@ class YapiApiExporter : AbstractYapiApiExporter() {
     }
 
     private fun doExport() {
-        var anyFound = false
-        classApiExporterHelper.export {
-            anyFound = true
-            exportDoc(it)
-        }
-        if (anyFound) {
-            logger.info("Apis exported completed")
-        } else {
-            logger.info("No api be found to export!")
-        }
+
+        val docs = classApiExporterHelper.export()
+        docs.forEach { doc ->exportDoc(doc)}
+        Notifications.Bus.notify(Notification("Final Api Group", "导出到Yapi接口:${docs.size}个", NotificationType.INFORMATION), project)
+//        var anyFound = false
+//        classApiExporterHelper.export {
+//            anyFound = true
+//            exportDoc(it)
+//        }
+//        if (anyFound) {
+//            logger.info("Apis exported completed")
+//        } else {
+//            logger.info("No api be found to export!")
+//        }
     }
 
     //privateToken+folderName -> CartInfo

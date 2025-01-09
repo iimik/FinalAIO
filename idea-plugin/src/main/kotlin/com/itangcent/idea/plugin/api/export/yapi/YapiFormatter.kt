@@ -423,7 +423,7 @@ open class YapiFormatter {
     private fun appendMarkdown(doc: Doc): String? {
         val element = doc.resource()
         val basePath = element!!.project.basePath
-        val module = ModuleUtil.findModuleForPsiElement(element)
+        val module = actionContext.callInReadUI { ModuleUtil.findModuleForPsiElement(element) }
         val modulePath = module!!.filePath();
 
         val folder = formatFolderHelper!!.resolveFolder(doc.resource!!)

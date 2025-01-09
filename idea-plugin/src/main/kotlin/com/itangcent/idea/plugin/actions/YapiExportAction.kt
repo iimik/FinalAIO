@@ -1,13 +1,8 @@
 package com.itangcent.idea.plugin.actions
 
-import com.intellij.notification.Notification
-import com.intellij.notification.NotificationType
-import com.intellij.notification.Notifications
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
-import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiElement
 import com.itangcent.idea.plugin.api.export.ExportChannel
 import com.itangcent.idea.plugin.api.export.ExportDoc
 import com.itangcent.idea.plugin.api.export.core.*
@@ -53,13 +48,8 @@ class YapiExportAction : ApiExportAction("Export Yapi") {
 
     override fun actionPerformed(actionContext: ActionContext, project: Project?, anActionEvent: AnActionEvent) {
         super.actionPerformed(actionContext, project, anActionEvent)
-        actionContext.runInReadUI {
-            val element = anActionEvent.getData(CommonDataKeys.PSI_ELEMENT)
-            val exporter = actionContext.instance(YapiApiExporter::class)
-            val docs = exporter.export(element!!)
-            docs.forEach(exporter::exportDoc)
-            Notifications.Bus.notify(Notification("Final Api Group", "导出到Yapi接口:${docs.size}个", NotificationType.INFORMATION), project)
-        }
+        val exporter = actionContext.instance(YapiApiExporter::class)
+        exporter.export()
 
     }
 

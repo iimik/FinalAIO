@@ -1,6 +1,8 @@
 package com.itangcent.idea.plugin.api.export.core
 
 import com.google.inject.Inject
+import com.intellij.openapi.application.ReadAction
+import com.intellij.openapi.util.ThrowableComputable
 import com.intellij.psi.*
 import com.itangcent.common.constant.Attrs
 import com.itangcent.common.constant.HttpMethod
@@ -111,7 +113,10 @@ abstract class RequestClassExporter : ClassExporter {
         if (cls is PsiClass) {
             return doExport(cls, null, docHandle)
         } else if (cls is PsiMethod) {
-            return doExport(cls.getContainingClass() as PsiClass, cls, docHandle)
+
+            val psiClass = actionContext.callInReadUI { cls.getContainingClass() } as PsiClass
+
+            return doExport(psiClass, cls, docHandle)
         }
         return false
     }

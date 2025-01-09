@@ -2,7 +2,10 @@ package com.itangcent.idea.plugin.api
 
 import com.google.inject.Inject
 import com.google.inject.Singleton
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.psi.PsiClass
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiField
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiType
@@ -65,6 +68,9 @@ open class ClassApiExporterHelper {
 
     @Inject
     private lateinit var configReader: ConfigReader
+
+    @Inject
+    private lateinit var anActionEvent: AnActionEvent
 
     companion object : Log()
 
@@ -194,37 +200,46 @@ open class ClassApiExporterHelper {
 
     fun export(handle: (Doc) -> Unit) {
         logger.info("Starting API export process...")
-        val psiClassQueue: BlockingQueue<PsiClass> = LinkedBlockingQueue()
+
+
+
+
+        val psiClassQueue: BlockingQueue<PsiElement> = LinkedBlockingQueue()
 
         val boundary = actionContext.createBoundary()
 
-        actionContext.runAsync {
-            SelectedHelper.Builder()
-//                .dirFilter { dir, callBack ->
-//                    try {
-//                        val yes = messagesHelper.showYesNoDialog(
-//                            "Export the api in directory [${ActionUtils.findCurrentPath(dir)}]?",
-//                            "Confirm",
-//                            Messages.getQuestionIcon()
-//                        )
-//                        if (yes == Messages.YES) {
-//                            callBack(true)
-//                        } else {
-//                            logger.debug("Cancel the operation export api from [${
-//                                ActionUtils.findCurrentPath(dir)
-//                            }]!")
-//                            callBack(false)
-//                        }
-//                    } catch (e: Exception) {
-//                        callBack(false)
-//                    }
-//                }
-                .fileFilter { file -> FileType.acceptable(file.name) }
-                .classHandle {
-                    psiClassQueue.add(it)
-                }
-                .traversal()
+        actionContext.runInReadUI {
+            val element = anActionEvent.getData(CommonDataKeys.PSI_ELEMENT)
+            psiClassQueue.add(element)
         }
+
+//        actionContext.runAsync {
+//            SelectedHelper.Builder()
+////                .dirFilter { dir, callBack ->
+////                    try {
+////                        val yes = messagesHelper.showYesNoDialog(
+////                            "Export the api in directory [${ActionUtils.findCurrentPath(dir)}]?",
+////                            "Confirm",
+////                            Messages.getQuestionIcon()
+////                        )
+////                        if (yes == Messages.YES) {
+////                            callBack(true)
+////                        } else {
+////                            logger.debug("Cancel the operation export api from [${
+////                                ActionUtils.findCurrentPath(dir)
+////                            }]!")
+////                            callBack(false)
+////                        }
+////                    } catch (e: Exception) {
+////                        callBack(false)
+////                    }
+////                }
+//                .fileFilter { file -> FileType.acceptable(file.name) }
+//                .classHandle {
+//                    psiClassQueue.add(it)
+//                }
+//                .traversal()
+//        }
 
         while (true) {
             val psiClass = psiClassQueue.poll()
@@ -237,12 +252,12 @@ open class ClassApiExporterHelper {
                     break
                 }
             } else {
-                val classQualifiedName = actionContext.callInReadUI { psiClass.qualifiedName }
-                LOG.info("Processing API for class: $classQualifiedName")
+//                val classQualifiedName = actionContext.callInReadUI { psiClass.qualifiedName }
+//                LOG.info("Processing API for class: $classQualifiedName")
                 actionContext.withBoundary {
                     classExporter.export(psiClass) { handle(it) }
                 }
-                LOG.info("Successfully parsed API for class: $classQualifiedName")
+//                LOG.info("Successfully parsed API for class: $classQualifiedName")
             }
         }
     }
