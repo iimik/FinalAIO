@@ -30,6 +30,8 @@
             <add-to-group group-id="GenerateGroup" anchor="last"/>
             <action class="org.ifinalframework.api.idea.action.FinalApiExportAction"
                     id="org.ifinalframework.api.idea.action.FinalApiExportAction"/>
+            <action class="org.ifinalframework.api.idea.action.OpenMarkdownAction"
+                    id="org.ifinalframework.api.idea.action.OpenMarkdownAction"/>
             <reference ref="EasyApiExportGroup"/>
         </group>
 
