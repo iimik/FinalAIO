@@ -1,6 +1,6 @@
 <idea-plugin>
 
-    <actions>
+    <actions resource-bundle="messages.BasicActionsBundle">
         <group id="EasyApiExportGroup" text="Export" description="Export apis">
             <action id="com.itangcent.idea.easy_api.actions.YapiExportAction"
                     class="com.itangcent.idea.plugin.actions.YapiExportAction" text="ExportToYapi"
@@ -31,7 +31,9 @@
             <action class="org.ifinalframework.api.idea.action.FinalApiExportAction"
                     id="org.ifinalframework.api.idea.action.FinalApiExportAction"/>
             <action class="org.ifinalframework.api.idea.action.OpenMarkdownAction"
-                    id="org.ifinalframework.api.idea.action.OpenMarkdownAction"/>
+                    id="org.ifinalframework.api.idea.action.OpenMarkdownAction"
+                    icon="assets/markdown.svg"
+            />
             <reference ref="EasyApiExportGroup"/>
         </group>
 
