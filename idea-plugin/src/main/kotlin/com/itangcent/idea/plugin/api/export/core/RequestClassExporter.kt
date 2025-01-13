@@ -2,6 +2,7 @@ package com.itangcent.idea.plugin.api.export.core
 
 import com.google.inject.Inject
 import com.intellij.openapi.application.ReadAction
+import com.intellij.openapi.module.ModuleUtil
 import com.intellij.openapi.util.ThrowableComputable
 import com.intellij.psi.*
 import com.itangcent.common.constant.Attrs
@@ -13,6 +14,7 @@ import com.itangcent.common.model.Request
 import com.itangcent.common.model.Response
 import com.itangcent.common.model.hasBodyOrForm
 import com.itangcent.common.utils.*
+import com.itangcent.common.utils.FileUtils
 import com.itangcent.http.RequestUtils
 import com.itangcent.idea.plugin.api.ClassApiExporterHelper
 import com.itangcent.idea.plugin.api.MethodInferHelper
@@ -23,6 +25,8 @@ import com.itangcent.idea.plugin.dialog.getContainingClass
 import com.itangcent.idea.plugin.settings.helper.IntelligentSettingsHelper
 import com.itangcent.idea.psi.PsiMethodResource
 import com.itangcent.idea.psi.PsiMethodSet
+import com.itangcent.idea.psi.resource
+import com.itangcent.intellij.adaptor.ModuleAdaptor.filePath
 import com.itangcent.intellij.config.rule.RuleComputer
 import com.itangcent.intellij.config.rule.computer
 import com.itangcent.intellij.context.ActionContext
@@ -38,6 +42,12 @@ import com.itangcent.intellij.logger.Logger
 import com.itangcent.intellij.psi.ContextSwitchListener
 import com.itangcent.intellij.psi.PsiClassUtils
 import com.itangcent.intellij.util.*
+import java.io.BufferedInputStream
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.reflect.KClass
 
 
@@ -108,6 +118,9 @@ abstract class RequestClassExporter : ClassExporter {
 
     @Inject
     protected lateinit var commentResolver: CommentResolver
+
+    @Inject
+    private lateinit var formatFolderHelper: FormatFolderHelper
 
     override fun export(cls: Any, docHandle: DocHandle): Boolean {
         if (cls is PsiClass) {
@@ -205,6 +218,8 @@ abstract class RequestClassExporter : ClassExporter {
         processMethod(methodExportContext, request)
 
         processMethodParameters(methodExportContext, request)
+
+        processMethodMarkdown(methodExportContext, request)
 
         processResponse(methodExportContext, request)
 
@@ -589,6 +604,49 @@ abstract class RequestClassExporter : ClassExporter {
         parameterExportContext: ParameterExportContext,
         paramDesc: String?,
     )
+
+    /**
+     * 解析Markdown文件
+     */
+    fun processMethodMarkdown(context: MethodExportContext, request: Request){
+
+        val element = request.resource()
+        val basePath = element!!.project.basePath
+        val module = actionContext.callInReadUI { ModuleUtil.findModuleForPsiElement(element) }
+        val modulePath = module!!.filePath();
+
+        val folder = formatFolderHelper!!.resolveFolder(request.resource!!)
+        var markdownDocs = "docs/api";
+        val markdownDir = folder.name!!.replace("-", "/")
+        val file = File("$modulePath/$markdownDocs/$markdownDir/${request.name}.md")
+        if(!file.exists()){
+            return
+        }
+        val markdown = FileUtils.read(file)
+
+        val newMarkdown = markdown!!.split("\n").stream()
+            .map {
+                if (it.trim().startsWith("![")) {
+                    // 图片 ![]()
+                    val start = it.indexOf("(");
+                    val end = it.indexOf(")");
+                    val imageFile = it.substring(start + 1, end)
+                    logger.info("image line: $it, imageFile=$imageFile")
+
+                    val bytes = BufferedInputStream(FileInputStream("$modulePath/$markdownDocs/$markdownDir/$imageFile")).readBytes()
+                    val imageBase64 = Base64.getEncoder().encodeToString(bytes)
+                    val newImageLine = it.substring(0, start) + "(data:image/png;base64," + imageBase64 + ")"
+                    return@map newImageLine
+
+                } else {
+                    return@map it;
+                }
+            }
+            .joinToString("\n")
+
+        logger.info("Markdown: basePath=$basePath, modulePath=$modulePath, file=${file.absolutePath}");
+        request.markdown = newMarkdown
+    }
 
     protected fun setRequestBody(
         exportContext: ExportContext,

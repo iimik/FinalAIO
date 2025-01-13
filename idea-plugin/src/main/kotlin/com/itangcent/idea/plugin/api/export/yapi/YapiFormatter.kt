@@ -102,8 +102,6 @@ open class YapiFormatter {
 
         item["title"] = methodDoc.name
 
-        item["markdown"] = appendMarkdown(methodDoc)
-
         appendDescToApiItem(item, methodDoc.desc)
 
 
@@ -305,9 +303,6 @@ open class YapiFormatter {
 
         item["title"] = request.name
 
-        val markdown = appendMarkdown(request)
-        item["markdown"] = markdown;
-
         appendDescToApiItem(item, request.desc)
 
         val queryPath: HashMap<String, Any?> = HashMap()
@@ -415,48 +410,6 @@ open class YapiFormatter {
         }
 
         return item
-    }
-
-    /**
-     * 找到对应方法的Markdown文件
-     */
-    private fun appendMarkdown(doc: Doc): String? {
-        val element = doc.resource()
-        val basePath = element!!.project.basePath
-        val module = actionContext.callInReadUI { ModuleUtil.findModuleForPsiElement(element) }
-        val modulePath = module!!.filePath();
-
-        val folder = formatFolderHelper!!.resolveFolder(doc.resource!!)
-        var markdownDocs = "docs/api";
-        val markdownDir = folder.name!!.replace("-", "/")
-        val file = File("$modulePath/$markdownDocs/$markdownDir/${doc.name}.md")
-        if(!file.exists()){
-            return null
-        }
-        val markdown = FileUtils.read(file)
-
-        val newMarkdown = markdown!!.split("\n").stream()
-            .map {
-                if (it.trim().startsWith("![")) {
-                    // 图片 ![]()
-                    val start = it.indexOf("(");
-                    val end = it.indexOf(")");
-                    val imageFile = it.substring(start + 1, end)
-                    logger.info("image line: $it, imageFile=$imageFile")
-
-                    val bytes = BufferedInputStream(FileInputStream("$modulePath/$markdownDocs/$markdownDir/$imageFile")).readBytes()
-                    val imageBase64 = Base64.getEncoder().encodeToString(bytes)
-                    val newImageLine = it.substring(0, start) + "(data:image/png;base64," + imageBase64 + ")"
-                    return@map newImageLine
-
-                } else {
-                    return@map it;
-                }
-            }
-            .joinToString("\n")
-
-        logger.info("Markdown: basePath=$basePath, modulePath=$modulePath, file=${file.absolutePath}");
-        return newMarkdown
     }
 
     fun item2Request(item: HashMap<String, Any?>): Request {
