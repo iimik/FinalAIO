@@ -34,6 +34,8 @@
                     id="org.ifinalframework.api.idea.action.OpenMarkdownAction"
                     icon="assets/markdown.svg"
             />
+            <action class="org.ifinalframework.api.idea.action.OpenApiAction"
+                    id="org.ifinalframework.api.idea.action.OpenApiAction"/>
             <reference ref="EasyApiExportGroup"/>
         </group>
 

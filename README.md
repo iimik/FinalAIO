@@ -6,6 +6,7 @@
 
 * 支持编写`Markdown`文档并在导出时作为接口描述文件导出。
 * 在`Controller`的`Method`的方法上增加`Open Markdown`入口，可快速打开`Markdown`文件
+* 在`Controller`的`Method`的方法上增加`Open Api`入口，可快速（在浏览器）打开`Api`文档
 
 ---
 
