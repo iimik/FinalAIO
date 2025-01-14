@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
 
-    implementation("org.springframework.boot:spring-boot-starter:3.4.1")
+//    implementation("org.springframework.boot:spring-boot-starter:3.4.1")
 
     implementation(project(":common-api")) {
         exclude("org.apache.httpcomponents", "httpclient")
