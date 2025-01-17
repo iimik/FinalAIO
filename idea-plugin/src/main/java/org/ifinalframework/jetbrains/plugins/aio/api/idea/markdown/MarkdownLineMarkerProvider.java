@@ -9,7 +9,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiMethod;
 
-import org.ifinalframework.jetbrains.plugins.aio.api.idea.icon.Icons;
+import org.ifinalframework.jetbrains.plugins.aio.icon.Icons;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,7 +24,6 @@ import java.util.stream.Stream;
  * @since 1.6.0
  **/
 public class MarkdownLineMarkerProvider implements LineMarkerProvider {
-
 
     private static final String REQUEST_MAPPING_ANNOTATION = "org.springframework.web.bind.annotation.RequestMapping";
     private static final String GET_MAPPING = "org.springframework.web.bind.annotation.GetMapping";

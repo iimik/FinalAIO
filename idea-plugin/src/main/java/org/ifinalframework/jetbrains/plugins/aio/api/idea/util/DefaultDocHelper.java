@@ -6,7 +6,11 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.javadoc.PsiDocComment;
+import com.intellij.psi.javadoc.PsiDocTag;
 
+import org.springframework.stereotype.Component;
+
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -18,6 +22,7 @@ import java.util.Arrays;
  * @since 1.6.0
  **/
 @Singleton
+@Component
 public class DefaultDocHelper implements DocHelper {
 
     @Override
@@ -46,5 +51,10 @@ public class DefaultDocHelper implements DocHelper {
         }
 
         return null;
+    }
+
+    @Override
+    public String getDocTagValue(@NotNull PsiDocTag psiDocTag) {
+        return psiDocTag.getValueElement().getText().trim();
     }
 }

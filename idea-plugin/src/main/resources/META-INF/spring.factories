@@ -1,0 +1,3 @@
+# EnvironmentPostProcessor
+org.springframework.boot.env.EnvironmentPostProcessor=\
+org.ifinalframework.jetbrains.plugins.aio.spring.env.ElementEnvironmentPostProcessor

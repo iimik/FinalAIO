@@ -23,7 +23,12 @@ repositories {
 
 dependencies {
 
-//    implementation("org.springframework.boot:spring-boot-starter:3.4.1")
+    compileOnly( "org.projectlombok:lombok:1.18.36")
+    annotationProcessor( "org.projectlombok:lombok:1.18.36")
+    testCompileOnly( "org.projectlombok:lombok:1.18.36")
+    testAnnotationProcessor( "org.projectlombok:lombok:1.18.36")
+
+    implementation("org.springframework.boot:spring-boot-starter:3.4.1")
 
     implementation(project(":common-api")) {
         exclude("org.apache.httpcomponents", "httpclient")

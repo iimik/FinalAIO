@@ -30,7 +30,7 @@ class EnhancedConfigReader : BaseConfigReader() {
         SpiCompositeLoader.load<ConfigProvider>(ActionContext.getContext()!!)
     }
 
-    @Inject
+    @Inject(optional = true)
     private lateinit var contextSwitchListener: ContextSwitchListener
 
     @Volatile
@@ -71,12 +71,12 @@ class EnhancedConfigReader : BaseConfigReader() {
             synchronized(this) {
                 if (notInit) {
                     try {
-                        contextSwitchListener.onModuleChange {
+                        contextSwitchListener?.onModuleChange {
                             loadConfigList()
                         }
                         //fix: https://github.com/tangcent/easy-yapi/issues/1121
                         //if the module is null, the contextSwitchListener will not be triggered
-                        if (contextSwitchListener.getModule() == null) {
+                        if (contextSwitchListener?.getModule() == null) {
                             loadConfigList()
                         }
                     } finally {
