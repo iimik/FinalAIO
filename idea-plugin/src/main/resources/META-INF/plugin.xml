@@ -1,6 +1,6 @@
 <idea-plugin>
-    <id>org.ifinalframework.plugins.final-api</id>
-    <name>Final Api</name>
+    <id>org.ifinalframework.jetbrains.plugins.aio</id>
+    <name>Final AIO</name>
     <version>0.0.1-beta</version>
     <vendor email="iimik@qq.com" url="https://github.com/iimik">米克¹²³</vendor>
 

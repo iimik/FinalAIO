@@ -29,7 +29,7 @@ git branch ${release_branch}
 git checkout ${release_branch}
 
 # Get a list of all commits made after the last release tag
-commits=$(git log --pretty=format:"%s" v${last_version}..HEAD | sed 's/\(#\([0-9]*\)\)/<a href="https:\/\/github.com\/tangcent\/easy-yapi\/pull\/\2">\1<\/a>/')
+commits=$(git log --pretty=format:"%s" v${last_version}..HEAD | sed 's/\(#\([0-9]*\)\)/<a href="https:\/\/github.com\/iimik\/FinalAIO\/pull\/\2">\1<\/a>/')
 echo "commits:${commits}"
 
 # Separate commits into enhancements and fixes
@@ -45,9 +45,9 @@ sed -i.bak "s/version=${last_version}/version=${next_version}/g" ${basedir}/grad
 sed -i.bak "s/<version\>${last_version}/<version\>${next_version}/" ${basedir}/idea-plugin/src/main/resources/META-INF/plugin.xml && rm ${basedir}/idea-plugin/src/main/resources/META-INF/plugin.xml.bak
 
 # Write the header to the pluginChanges.html file
-echo "<a href=\"https://github.com/tangcent/easy-yapi/releases/tag/v${next_version}\">v${next_version}(${release_date})</a>" > ${basedir}/idea-plugin/parts/pluginChanges.html
+echo "<a href=\"https://github.com/iimik/FinalAIO/releases/tag/v${next_version}\">v${next_version}(${release_date})</a>" > ${basedir}/idea-plugin/parts/pluginChanges.html
 echo "<br/>" >> ${basedir}/idea-plugin/parts/pluginChanges.html
-echo "<a href=\"https://github.com/tangcent/easy-yapi/blob/master/IDEA_CHANGELOG.md\">Full Changelog</a>" >> ${basedir}/idea-plugin/parts/pluginChanges.html
+echo "<a href=\"https://github.com/iimik/FinalAIO/blob/master/IDEA_CHANGELOG.md\">Full Changelog</a>" >> ${basedir}/idea-plugin/parts/pluginChanges.html
 
 echo "<h3>Enhancements:</h3>" >> ${basedir}/idea-plugin/parts/pluginChanges.html
 # Write the list of enhancements to the pluginChanges.html file (if there are any)
@@ -70,7 +70,7 @@ fi
 tidy -q -indent -wrap 0 --show-body-only yes ${basedir}/idea-plugin/parts/pluginChanges.html > ${basedir}/idea-plugin/parts/pluginChanges_temp.html
 mv ${basedir}/idea-plugin/parts/pluginChanges_temp.html ${basedir}/idea-plugin/parts/pluginChanges.html
 
-commits_for_changes_log=$(git log --pretty=format:"%s" v${last_version}..HEAD | sed -e 's/^\(.*\)(#\([0-9]*\))$/\	* \1 \[\(#\2\)]\(https:\/\/github.com\/tangcent\/easy-yapi\/pull\/\2\)\n/')
+commits_for_changes_log=$(git log --pretty=format:"%s" v${last_version}..HEAD | sed -e 's/^\(.*\)(#\([0-9]*\))$/\	* \1 \[\(#\2\)]\(https:\/\/github.com\/iimik\/FinalAIO\/pull\/\2\)\n/')
 echo "commits_for_changes_log:${commits_for_changes_log}"
 
 echo "${commits_for_changes_log}" | cat - ${basedir}/IDEA_CHANGELOG.md > tmp && mv tmp ${basedir}/IDEA_CHANGELOG.md

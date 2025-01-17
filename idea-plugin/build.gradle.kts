@@ -108,7 +108,7 @@ tasks.getByName<Test>("test") {
 intellij {
     version.set(intellijVersion)
     type.set("IC")
-    pluginName.set("easy-yapi")
+    pluginName.set("final-aio")
     sandboxDir.set("idea-sandbox")
     plugins.set(listOf("java", "maven", "gradle"))
 }
