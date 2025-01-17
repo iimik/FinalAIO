@@ -1,4 +1,4 @@
-package org.ifinalframework.api.idea.yapi;
+package org.ifinalframework.jetbrains.plugins.aio.api.idea.yapi;
 
 import com.google.inject.Inject
 import com.google.inject.Singleton
@@ -11,7 +11,7 @@ import com.itangcent.idea.plugin.api.export.yapi.findExistApi
 import com.itangcent.idea.plugin.settings.helper.YapiSettingsHelper
 import com.itangcent.idea.utils.ModuleHelper
 import com.itangcent.intellij.context.ActionContext
-import org.ifinalframework.api.idea.core.ApiOpener
+import org.ifinalframework.jetbrains.plugins.aio.api.idea.core.ApiOpener
 import java.awt.Desktop
 import java.io.IOException
 import java.net.URI

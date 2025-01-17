@@ -1,4 +1,4 @@
-package org.ifinalframework.api.idea.parser;
+package org.ifinalframework.jetbrains.plugins.aio.api.idea.parser;
 
 
 import com.intellij.psi.PsiClass;

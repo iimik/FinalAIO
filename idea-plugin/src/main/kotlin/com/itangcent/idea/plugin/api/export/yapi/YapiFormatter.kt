@@ -101,7 +101,7 @@ open class YapiFormatter {
         item["tag"] = methodDoc.getTags()
 
         item["title"] = methodDoc.name
-
+        item["markdown"] = methodDoc.markdown
         appendDescToApiItem(item, methodDoc.desc)
 
 
@@ -302,6 +302,7 @@ open class YapiFormatter {
         item["tag"] = request.getTags()
 
         item["title"] = request.name
+        item["markdown"] = request.markdown
 
         appendDescToApiItem(item, request.desc)
 

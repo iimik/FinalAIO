@@ -1,4 +1,4 @@
-package org.ifinalframework.api.idea.action;
+package org.ifinalframework.jetbrains.plugins.aio.api.idea.action;
 
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -27,7 +27,7 @@ import com.itangcent.intellij.extend.guice.with
 import com.itangcent.intellij.file.DefaultLocalFileRepository
 import com.itangcent.intellij.file.LocalFileRepository
 import com.itangcent.intellij.jvm.PsiClassHelper
-import org.ifinalframework.api.idea.yapi.YapiOpener
+import org.ifinalframework.jetbrains.plugins.aio.api.idea.yapi.YapiOpener
 import javax.swing.Icon
 
 

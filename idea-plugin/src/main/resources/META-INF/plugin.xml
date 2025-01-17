@@ -27,5 +27,6 @@
     <depends optional="true" config-file="easy-api-scala.xml">org.intellij.scala</depends>
     <extensions defaultExtensionNs="com.intellij">
         <notificationGroup displayType="BALLOON" id="Final Api Group"/>
+        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="org.ifinalframework.jetbrains.plugins.aio.api.idea.markdown.MarkdownLineMarkerProvider"/>
     </extensions>
 </idea-plugin>

@@ -6,7 +6,6 @@ import com.itangcent.common.model.Doc
 import com.itangcent.idea.plugin.api.export.core.ClassExporter
 import com.itangcent.idea.plugin.api.export.core.Folder
 import com.itangcent.idea.plugin.api.export.core.FormatFolderHelper
-import com.itangcent.idea.plugin.config.EnhancedConfigReader
 import com.itangcent.idea.plugin.rule.SuvRuleContext
 import com.itangcent.idea.plugin.rule.setDoc
 import com.itangcent.idea.plugin.settings.SettingBinder
@@ -17,7 +16,7 @@ import com.itangcent.intellij.config.ConfigReader
 import com.itangcent.intellij.config.rule.RuleComputer
 import com.itangcent.intellij.context.ActionContext
 import com.itangcent.intellij.logger.Logger
-import org.ifinalframework.api.config.YapiConfigConstants
+import org.ifinalframework.jetbrains.plugins.aio.api.config.YapiConfigConstants
 
 
 open class AbstractYapiApiExporter {

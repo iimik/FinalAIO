@@ -1,4 +1,4 @@
-package org.ifinalframework.api.config;
+package org.ifinalframework.jetbrains.plugins.aio.api.config;
 
 
 /**

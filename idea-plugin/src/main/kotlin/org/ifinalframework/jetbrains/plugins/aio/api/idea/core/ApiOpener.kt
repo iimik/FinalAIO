@@ -1,4 +1,4 @@
-package org.ifinalframework.api.idea.core
+package org.ifinalframework.jetbrains.plugins.aio.api.idea.core
 
 import com.intellij.psi.PsiMethod
 

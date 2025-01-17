@@ -1,6 +1,10 @@
-# Final Api
+# Final AIO
 
-基于[easy-yapi](https://github.com/tangcent/easy-yapi)插件开发，增加定制功能。
+Final AIO(All In One)是一个集成众多热门插件，实现定制化开发的一个IDEA插件
+
+## 插件列表
+
+* 基于[easy-yapi](https://github.com/tangcent/easy-yapi)插件开发，增加定制功能。
 
 ## Features
 
