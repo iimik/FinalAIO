@@ -38,5 +38,5 @@ cache:
 #  overwrite: true
 #  skip_cleanup: true
 #  on:
-#    branch: master
+#    branch: main
 #    repo: tangcent/easy-api

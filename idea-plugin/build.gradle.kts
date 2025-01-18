@@ -28,7 +28,10 @@ dependencies {
     testCompileOnly( "org.projectlombok:lombok:1.18.36")
     testAnnotationProcessor( "org.projectlombok:lombok:1.18.36")
 
+    // https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
+    implementation("org.eclipse.jgit:org.eclipse.jgit:7.1.0.202411261347-r")
     implementation("org.springframework.boot:spring-boot-starter:3.4.1")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.4.1")
 
     implementation(project(":common-api")) {
         exclude("org.apache.httpcomponents", "httpclient")

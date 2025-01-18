@@ -47,7 +47,7 @@ sed -i.bak "s/<version\>${last_version}/<version\>${next_version}/" ${basedir}/i
 # Write the header to the pluginChanges.html file
 echo "<a href=\"https://github.com/iimik/FinalAIO/releases/tag/v${next_version}\">v${next_version}(${release_date})</a>" > ${basedir}/idea-plugin/parts/pluginChanges.html
 echo "<br/>" >> ${basedir}/idea-plugin/parts/pluginChanges.html
-echo "<a href=\"https://github.com/iimik/FinalAIO/blob/master/IDEA_CHANGELOG.md\">Full Changelog</a>" >> ${basedir}/idea-plugin/parts/pluginChanges.html
+echo "<a href=\"https://github.com/iimik/FinalAIO/blob/main/IDEA_CHANGELOG.md\">Full Changelog</a>" >> ${basedir}/idea-plugin/parts/pluginChanges.html
 
 echo "<h3>Enhancements:</h3>" >> ${basedir}/idea-plugin/parts/pluginChanges.html
 # Write the list of enhancements to the pluginChanges.html file (if there are any)

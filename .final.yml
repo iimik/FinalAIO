@@ -1,2 +1,3 @@
-issues:
-  issue: https://github.com/iimik/FinalAIO/issues/%s
+jira:
+  server-url: https://jira.mxcb.xyz
+  project-code: BLOCKCHAIN

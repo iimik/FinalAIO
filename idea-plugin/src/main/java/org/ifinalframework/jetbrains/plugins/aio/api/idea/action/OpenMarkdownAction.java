@@ -8,7 +8,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.util.NlsActions;
 import com.intellij.psi.PsiElement;
 
-import org.ifinalframework.jetbrains.plugins.aio.api.idea.$;
+import org.ifinalframework.jetbrains.plugins.aio.$;
 import org.ifinalframework.jetbrains.plugins.aio.api.idea.markdown.MarkdownOpener;
 import org.ifinalframework.jetbrains.plugins.aio.api.idea.markdown.OpenMarkdownModule;
 

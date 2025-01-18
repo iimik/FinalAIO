@@ -8,6 +8,7 @@ import com.intellij.psi.PsiMethod;
 import com.intellij.psi.javadoc.PsiDocComment;
 import com.intellij.psi.javadoc.PsiDocTag;
 
+import org.ifinalframework.jetbrains.plugins.aio.$;
 import org.springframework.stereotype.Component;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +20,7 @@ import java.util.Arrays;
  * DefaultDocHelper
  *
  * @author iimik
- * @since 1.6.0
+ * @since 0.0.1
  **/
 @Singleton
 @Component
@@ -55,6 +56,6 @@ public class DefaultDocHelper implements DocHelper {
 
     @Override
     public String getDocTagValue(@NotNull PsiDocTag psiDocTag) {
-        return psiDocTag.getValueElement().getText().trim();
+        return $.read.compute(() -> psiDocTag.getValueElement().getText().trim());
     }
 }

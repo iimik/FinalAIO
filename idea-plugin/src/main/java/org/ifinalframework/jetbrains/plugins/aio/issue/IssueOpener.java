@@ -11,6 +11,8 @@ import com.intellij.psi.PsiElement;
  **/
 public interface IssueOpener {
 
+    boolean isSupported(PsiElement element);
+
     void open(PsiElement element);
 
 }
