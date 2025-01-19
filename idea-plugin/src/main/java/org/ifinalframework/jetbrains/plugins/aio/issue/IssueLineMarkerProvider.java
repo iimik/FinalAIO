@@ -29,6 +29,7 @@ import java.util.Objects;
 @Slf4j
 public class IssueLineMarkerProvider implements LineMarkerProvider {
 
+
     @Override
     public LineMarkerInfo<?> getLineMarkerInfo(@NotNull PsiElement psiElement) {
         if (psiElement instanceof PsiDocTag) {

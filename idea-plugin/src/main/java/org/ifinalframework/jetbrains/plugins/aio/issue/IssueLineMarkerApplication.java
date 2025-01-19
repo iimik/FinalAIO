@@ -11,10 +11,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigRegistry;
 
 /**
- * IssueLineMarkerApplication
+ * IssueLineMarker 应用。
+ * 在{@code @issue 或 @jira} LineMarker 点击时，在浏览器中打开对应的URL。
  *
  * @author iimik
  * @issue 3
+ * @see IssueLineMarkerProvider
+ * @see IssueOpener
  * @since 0.0.1
  **/
 public class IssueLineMarkerApplication implements ElementApplication {
