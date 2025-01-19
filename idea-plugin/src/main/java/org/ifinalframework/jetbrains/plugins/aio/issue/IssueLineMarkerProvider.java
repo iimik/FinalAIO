@@ -23,7 +23,6 @@ import java.util.Objects;
  *
  * @author iimik
  * @issue 3
- * @jira 3
  * @since 0.0.1
  **/
 @Slf4j
