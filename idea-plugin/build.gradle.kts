@@ -23,17 +23,17 @@ repositories {
 
 dependencies {
 
-    compileOnly( "org.projectlombok:lombok:1.18.36")
-    annotationProcessor( "org.projectlombok:lombok:1.18.36")
-    testCompileOnly( "org.projectlombok:lombok:1.18.36")
-    testAnnotationProcessor( "org.projectlombok:lombok:1.18.36")
+    compileOnly("org.projectlombok:lombok:1.18.36")
+    annotationProcessor("org.projectlombok:lombok:1.18.36")
+    testCompileOnly("org.projectlombok:lombok:1.18.36")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.36")
 
     // https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
     implementation("org.eclipse.jgit:org.eclipse.jgit:7.1.0.202411261347-r")
-    implementation("org.springframework.boot:spring-boot-starter:3.4.1")
-    implementation("org.springframework.boot:spring-boot-starter-aop:3.4.1")
-//    implementation("org.springframework:spring-aop:6.2.1")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:3.4.1")
+    // spring boot
+    implementation("org.springframework.boot:spring-boot-starter:${properties["spring.boot.version"]}")
+    implementation("org.springframework.boot:spring-boot-starter-aop:${properties["spring.boot.version"]}")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${properties["spring.boot.version"]}")
 
     implementation(project(":common-api")) {
         exclude("org.apache.httpcomponents", "httpclient")
