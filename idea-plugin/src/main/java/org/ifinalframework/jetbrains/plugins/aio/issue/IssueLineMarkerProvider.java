@@ -28,11 +28,9 @@ import java.util.Objects;
 @Slf4j
 public class IssueLineMarkerProvider implements LineMarkerProvider {
 
-
     @Override
     public LineMarkerInfo<?> getLineMarkerInfo(@NotNull PsiElement psiElement) {
-        if (psiElement instanceof PsiDocTag) {
-            final PsiDocTag tag = (PsiDocTag) psiElement;
+        if (psiElement instanceof PsiDocTag tag) {
 
             final IssueType issueType = IssueType.of(tag.getName());
 
@@ -40,12 +38,12 @@ public class IssueLineMarkerProvider implements LineMarkerProvider {
                 return null;
             }
 
-            final NavigationGutterIconBuilder builder = NavigationGutterIconBuilder.create(issueType.getIcon());
+            final NavigationGutterIconBuilder<PsiElement> builder = NavigationGutterIconBuilder.create(issueType.getIcon());
             builder.setTargets(psiElement);
-            builder.setTooltipText("打开Jira");
-            return builder.createLineMarkerInfo(psiElement, ((mouseEvent, element) -> {
-                $.run(new IssueLineMarkerApplication(), element);
-            }));
+            builder.setTooltipText("Open issue in Browser!");
+            return builder.createLineMarkerInfo(psiElement,
+                    (mouseEvent, element) -> $.run(new IssueLineMarkerApplication(), element)
+            );
 
         }
 
