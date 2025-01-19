@@ -1,4 +1,4 @@
-package org.ifinalframework.jetbrains.plugins.aio;
+package org.ifinalframework.jetbrains.plugins.aio.application;
 
 
 import com.intellij.psi.PsiElement;

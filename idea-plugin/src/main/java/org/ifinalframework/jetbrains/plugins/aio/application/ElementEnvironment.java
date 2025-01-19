@@ -4,7 +4,6 @@ package org.ifinalframework.jetbrains.plugins.aio.application;
 import com.intellij.psi.PsiElement;
 import lombok.extern.slf4j.Slf4j;
 import org.ifinalframework.jetbrains.plugins.aio.$;
-import org.ifinalframework.jetbrains.plugins.aio.ElementPropertySourcesLoader;
 import org.ifinalframework.jetbrains.plugins.aio.config.DefaultConfigHelper;
 import org.springframework.boot.env.PropertySourceLoader;
 import org.springframework.core.env.MutablePropertySources;
