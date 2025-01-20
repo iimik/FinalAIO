@@ -1,4 +1,4 @@
-package org.ifinalframework.jetbrains.plugins.aio.api.idea.markdown;
+package org.ifinalframework.jetbrains.plugins.aio.api.markdown;
 
 
 import com.intellij.codeInsight.daemon.GutterIconNavigationHandler;
@@ -8,9 +8,8 @@ import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiMethod;
-
+import org.ifinalframework.jetbrains.plugins.aio.$;
 import org.ifinalframework.jetbrains.plugins.aio.icon.Icons;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.event.MouseEvent;
@@ -21,7 +20,8 @@ import java.util.stream.Stream;
  * 打开Markdown
  *
  * @author iimik
- * @since 1.6.0
+ * @issue 1
+ * @since 0.0.1
  **/
 public class MarkdownLineMarkerProvider implements LineMarkerProvider {
 
@@ -55,8 +55,7 @@ public class MarkdownLineMarkerProvider implements LineMarkerProvider {
             return builder.createLineMarkerInfo(psiElement, new GutterIconNavigationHandler<PsiElement>() {
                 @Override
                 public void navigate(MouseEvent mouseEvent, PsiElement psiElement) {
-                    final MarkdownOpener opener = OpenMarkdownModule.injector().getInstance(MarkdownOpener.class);
-                    opener.open(psiElement.getParent());
+                    $.run(MarkdownOpenElementApplication.class, psiElement.getParent());
                 }
             });
 

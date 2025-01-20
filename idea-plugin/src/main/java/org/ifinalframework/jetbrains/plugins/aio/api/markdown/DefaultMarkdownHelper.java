@@ -1,4 +1,4 @@
-package org.ifinalframework.jetbrains.plugins.aio.api.idea.util;
+package org.ifinalframework.jetbrains.plugins.aio.api.markdown;
 
 
 import com.google.inject.Inject;
@@ -6,10 +6,13 @@ import com.google.inject.Singleton;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
-
+import org.ifinalframework.jetbrains.plugins.aio.api.idea.util.DocHelper;
+import org.ifinalframework.jetbrains.plugins.aio.application.annotation.ReadAction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Optional;
 
 /**
@@ -19,15 +22,18 @@ import java.util.Optional;
  * @since 1.6.0
  **/
 @Singleton
+@Component
 public class DefaultMarkdownHelper implements MarkdownHelper {
 
     private static final String MARKDOWN_FILE_DIR = "docs/api";
 
     @Inject
+    @Resource
     private DocHelper docHelper;
 
     @Override
     @Nullable
+    @ReadAction
     public String getMarkdownPath(@NotNull PsiElement element) {
         if (element instanceof PsiMethod) {
             final PsiMethod method = (PsiMethod) element;

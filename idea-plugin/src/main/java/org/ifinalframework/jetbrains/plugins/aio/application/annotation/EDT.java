@@ -7,21 +7,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * ThreadAnnotation
+ * Event Dispatch Thread (EDT)
  *
  * @author iimik
- * @since 1.6.0
+ * @since 0.0.1
  **/
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.ANNOTATION_TYPE)
-public @interface ThreadAnnotation {
-
-    ThreadModel value();
-
-    enum ThreadModel {
-        READ_ACTION_RUN,
-        READ_ACTION_COMPUTE,
-        ASYNC
-    }
-
+public @interface EDT {
 }

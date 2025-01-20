@@ -1,9 +1,8 @@
-package org.ifinalframework.jetbrains.plugins.aio.api.idea.markdown;
+package org.ifinalframework.jetbrains.plugins.aio.api.markdown;
 
 
-import com.google.inject.ImplementedBy;
 import com.intellij.psi.PsiElement;
-
+import org.ifinalframework.jetbrains.plugins.aio.application.annotation.ReadAction;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -12,12 +11,12 @@ import org.jetbrains.annotations.NotNull;
  * @author iimik
  * @since 0.0.1
  **/
-@ImplementedBy(DefaultMarkdownOpener.class)
 public interface MarkdownOpener {
     /**
      * 打开Markdown
      *
      * @param element 可以有Markdown的元素
      */
+    @ReadAction
     void open(@NotNull PsiElement element);
 }

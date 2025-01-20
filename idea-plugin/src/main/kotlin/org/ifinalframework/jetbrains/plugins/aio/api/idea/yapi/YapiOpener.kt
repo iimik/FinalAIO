@@ -50,6 +50,7 @@ class YapiOpener : ApiOpener {
 
     override fun open(method: PsiMethod) {
 
+
         val psiClass = actionContext.callInReadUI { method.containingClass } as PsiClass
         val module = actionContext.callInReadUI { moduleHelper.findModule(psiClass) }
         val token = yapiSettingsHelper.getPrivateToken(module!!)

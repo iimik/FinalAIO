@@ -3,12 +3,11 @@ package org.ifinalframework.jetbrains.plugins.aio.issue;
 
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.javadoc.PsiDocTag;
-
-import org.springframework.stereotype.Component;
-
 import org.ifinalframework.jetbrains.plugins.aio.api.idea.util.DocHelper;
+import org.ifinalframework.jetbrains.plugins.aio.application.ElementHandler;
 import org.ifinalframework.jetbrains.plugins.aio.browser.BrowserOpener;
 import org.ifinalframework.jetbrains.plugins.aio.git.GitHelper;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -17,9 +16,10 @@ import javax.annotation.Resource;
  *
  * @author iimik
  * @since 0.0.1
+ * @see JiraIssueOpener
  **/
 @Component
-public class GitIssueOpener implements IssueOpener {
+public class GitIssueOpener implements ElementHandler {
     /**
      * 浏览器打开工具
      */
@@ -31,19 +31,7 @@ public class GitIssueOpener implements IssueOpener {
     private GitHelper gitHelper;
 
     @Override
-    public boolean isSupported(PsiElement element) {
-
-        if (!(element instanceof PsiDocTag)) {
-            return false;
-        }
-
-        PsiDocTag docTag = (PsiDocTag) element;
-        final String tagName = docTag.getName();
-        return IssueType.issue.name().equalsIgnoreCase(tagName);
-    }
-
-    @Override
-    public void open(PsiElement element) {
+    public void handle(PsiElement element) {
 
         if (!(element instanceof PsiDocTag)) {
             return;
@@ -51,6 +39,11 @@ public class GitIssueOpener implements IssueOpener {
 
         PsiDocTag docTag = (PsiDocTag) element;
         final String tagName = docTag.getName();
+
+        if (!IssueType.issue.name().equalsIgnoreCase(tagName)) {
+            return;
+        }
+
         final String value = docHelper.getDocTagValue(docTag);
         final String issuesUrl = gitHelper.getIssuesUrl(element, value);
 

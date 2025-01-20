@@ -1,11 +1,10 @@
 package org.ifinalframework.jetbrains.plugins.aio.jira;
 
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * JiraProperties
@@ -16,7 +15,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Configuration
-@ConfigurationProperties(prefix = "jira")
+@ConfigurationProperties(prefix = "final.jira")
 public class JiraProperties {
 
     /**

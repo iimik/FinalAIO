@@ -33,6 +33,7 @@ dependencies {
     // spring boot
     implementation("org.springframework.boot:spring-boot-starter:${properties["spring.boot.version"]}")
     implementation("org.springframework.boot:spring-boot-starter-aop:${properties["spring.boot.version"]}")
+    testImplementation("org.springframework.boot:spring-boot-starter-web:${properties["spring.boot.version"]}")
     testImplementation("org.springframework.boot:spring-boot-starter-test:${properties["spring.boot.version"]}")
 
     implementation(project(":common-api")) {

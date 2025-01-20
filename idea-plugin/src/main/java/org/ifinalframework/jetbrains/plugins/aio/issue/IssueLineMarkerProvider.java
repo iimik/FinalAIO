@@ -42,7 +42,7 @@ public class IssueLineMarkerProvider implements LineMarkerProvider {
             builder.setTargets(psiElement);
             builder.setTooltipText("Open issue in Browser!");
             return builder.createLineMarkerInfo(psiElement,
-                    (mouseEvent, element) -> $.run(new IssueLineMarkerApplication(), element)
+                    (mouseEvent, element) -> $.run(IssueLineMarkerApplication.class, element)
             );
 
         }

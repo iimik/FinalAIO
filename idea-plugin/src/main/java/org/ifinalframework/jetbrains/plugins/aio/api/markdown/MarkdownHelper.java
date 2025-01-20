@@ -1,4 +1,4 @@
-package org.ifinalframework.jetbrains.plugins.aio.api.idea.util;
+package org.ifinalframework.jetbrains.plugins.aio.api.markdown;
 
 
 import com.google.inject.ImplementedBy;

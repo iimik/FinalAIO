@@ -11,10 +11,9 @@ import java.lang.annotation.Target;
  *
  * @author iimik
  * @see com.intellij.openapi.application.Application#executeOnPooledThread(Runnable)
- * @since 1.6.0
+ * @since 0.0.1
  **/
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@ThreadAnnotation(ThreadAnnotation.ThreadModel.ASYNC)
 public @interface Async {
 }
