@@ -55,7 +55,7 @@ public class MarkdownLineMarkerProvider implements LineMarkerProvider {
             return builder.createLineMarkerInfo(psiElement, new GutterIconNavigationHandler<PsiElement>() {
                 @Override
                 public void navigate(MouseEvent mouseEvent, PsiElement psiElement) {
-                    $.run(MarkdownOpenElementApplication.class, psiElement.getParent());
+                    $.run(MarkdownOpenApplication.class, psiElement.getParent());
                 }
             });
 

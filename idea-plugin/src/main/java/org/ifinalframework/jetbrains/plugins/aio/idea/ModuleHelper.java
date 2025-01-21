@@ -7,6 +7,7 @@ import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.psi.PsiElement;
 
 import org.gradle.internal.impldep.org.eclipse.jgit.annotations.NonNull;
+import org.ifinalframework.jetbrains.plugins.aio.application.annotation.ReadAction;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,10 +19,12 @@ import org.jetbrains.annotations.NotNull;
 @ImplementedBy(DefaultModuleHelper.class)
 public interface ModuleHelper {
 
+    @ReadAction
     default String getBasePath(@NotNull PsiElement element) {
         return getBasePath(ModuleUtil.findModuleForPsiElement(element));
     }
 
+    @ReadAction
     String getBasePath(@NonNull Module module);
 
 }

@@ -7,7 +7,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.util.NlsActions;
 import com.intellij.psi.PsiElement;
 import org.ifinalframework.jetbrains.plugins.aio.$;
-import org.ifinalframework.jetbrains.plugins.aio.api.markdown.MarkdownOpenElementApplication;
+import org.ifinalframework.jetbrains.plugins.aio.api.markdown.MarkdownOpenApplication;
 import org.ifinalframework.jetbrains.plugins.aio.application.annotation.ReadAction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +37,6 @@ public class OpenMarkdownAction extends AnAction {
     @ReadAction
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
         final PsiElement psiElement = anActionEvent.getData(CommonDataKeys.PSI_ELEMENT);
-        $.run(MarkdownOpenElementApplication.class, psiElement);
+        $.run(MarkdownOpenApplication.class, psiElement);
     }
 }

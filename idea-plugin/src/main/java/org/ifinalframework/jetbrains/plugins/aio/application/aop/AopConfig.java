@@ -5,6 +5,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.ifinalframework.jetbrains.plugins.aio.application.annotation.Async;
 import org.ifinalframework.jetbrains.plugins.aio.application.annotation.EDT;
 import org.ifinalframework.jetbrains.plugins.aio.application.annotation.ReadAction;
+import org.ifinalframework.jetbrains.plugins.aio.application.annotation.WriteAction;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
@@ -26,6 +27,11 @@ public class AopConfig {
     @Bean
     public Advisor readActionAdvisor() {
         return buildAdvisor(ReadAction.class, new ReadActionMethodInterceptor());
+    }
+
+    @Bean
+    public Advisor writeActionAdvisor() {
+        return buildAdvisor(WriteAction.class, new WriteActionMethodInterceptor());
     }
 
     @Bean
