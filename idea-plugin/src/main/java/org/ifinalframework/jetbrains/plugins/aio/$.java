@@ -20,6 +20,11 @@ public class $ {
 
     public static final class read {
         @SneakyThrows
+        public static void run(ThrowableRunnable<Throwable> runnable) {
+            ReadAction.run(runnable);
+        }
+
+        @SneakyThrows
         public static <T> T compute(ThrowableComputable<T, Throwable> computable) {
             return ReadAction.compute(computable);
         }
@@ -27,9 +32,18 @@ public class $ {
 
     public static final class write {
         @SneakyThrows
-        public static void run(ThrowableRunnable<Throwable> computable) {
-            WriteAction.run(computable);
+        public static void run(ThrowableRunnable<Throwable> runnable) {
+            WriteAction.run(runnable);
         }
+
+        @SneakyThrows
+        public static <T> T compute(ThrowableComputable<T, Throwable> computable) {
+            return WriteAction.compute(computable);
+        }
+    }
+
+    public static void dispatch(Runnable runnable) {
+        ApplicationManager.getApplication().invokeLater(runnable);
     }
 
     public static void async(Runnable runnable) {
