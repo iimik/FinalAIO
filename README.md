@@ -8,9 +8,12 @@ Final AIO(All In One)是一个集成众多热门插件，实现定制化开发�
 
 ## Features
 
-* 支持编写`Markdown`文档并在导出时作为接口描述文件导出。
-* 在`Controller`的`Method`的方法上增加`Open Markdown`入口，可快速打开`Markdown`文件
-* 在`Controller`的`Method`的方法上增加`Open Api`入口，可快速（在浏览器）打开`Api`文档
+* API
+  * 支持编写`Markdown`文档并在导出时作为接口描述文件导出。
+  * 在`Controller`的`Method`的方法上增加`Open Markdown`入口，可快速打开`Markdown`文件
+  * 在`Controller`的`Method`的方法上增加`Open Api`入口，可快速（在浏览器）打开`Api`文档
+* Issue管理
+  * 在文档注释中，如果有`@issue`和`@jira`标签，则增加对应的Line Marker <img src="idea-plugin/src/main/resources/assets/jira.svg">和<img src="idea-plugin/src/main/resources/assets/git.svg">，通过点击可快速打开对应的Issue链接
 
 ---
 
