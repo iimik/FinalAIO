@@ -26,7 +26,9 @@
     <depends optional="true" config-file="easy-api-kotlin.xml">org.jetbrains.kotlin</depends>
     <depends optional="true" config-file="easy-api-scala.xml">org.intellij.scala</depends>
     <extensions defaultExtensionNs="com.intellij">
-        <notificationGroup displayType="BALLOON" id="Final Api Group"/>
+        <notificationGroup displayType="BALLOON" id="FINAL_AIO_BALLOON"/>
+        <notificationGroup displayType="STICKY_BALLOON" id="FINAL_AIO_STICKY_BALLOON"/>
+        <notificationGroup displayType="TOOL_WINDOW" id="FINAL_AIO_TOOL_WINDOW"/>
         <codeInsight.lineMarkerProvider language="JAVA" implementationClass="org.ifinalframework.jetbrains.plugins.aio.api.markdown.MarkdownLineMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="JAVA" implementationClass="org.ifinalframework.jetbrains.plugins.aio.issue.IssueLineMarkerProvider"/>
     </extensions>

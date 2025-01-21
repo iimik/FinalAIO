@@ -1,6 +1,8 @@
 package org.ifinalframework.jetbrains.plugins.aio.api.markdown;
 
 
+import com.intellij.notification.NotificationDisplayType;
+import com.intellij.notification.NotificationType;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -15,9 +17,7 @@ import org.ifinalframework.jetbrains.plugins.aio.$;
 import org.ifinalframework.jetbrains.plugins.aio.api.idea.util.DefaultDocHelper;
 import org.ifinalframework.jetbrains.plugins.aio.application.ElementHandler;
 import org.ifinalframework.jetbrains.plugins.aio.application.annotation.ElementApplication;
-import org.ifinalframework.jetbrains.plugins.aio.idea.DefaultFileCreator;
-import org.ifinalframework.jetbrains.plugins.aio.idea.DefaultModuleHelper;
-import org.ifinalframework.jetbrains.plugins.aio.idea.FileCreator;
+import org.ifinalframework.jetbrains.plugins.aio.idea.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,7 +37,8 @@ import java.util.Collection;
         DefaultDocHelper.class,
         DefaultMarkdownHelper.class,
         DefaultModuleHelper.class,
-        DefaultFileCreator.class
+        DefaultFileCreator.class,
+        DefaultNotificationService.class
 })
 public class MarkdownOpenApplication implements ElementHandler {
 
@@ -47,6 +48,8 @@ public class MarkdownOpenApplication implements ElementHandler {
     private MarkdownHelper markdownHelper;
     @Resource
     private FileCreator fileCreator;
+    @Resource
+    private NotificationService notificationService;
 
     @Override
     public void handle(@NotNull PsiElement element) {
@@ -87,6 +90,7 @@ public class MarkdownOpenApplication implements ElementHandler {
             final String fileName = StringUtils.substringAfterLast(markdownPath, "/");
             try {
                 markdownFile = fileCreator.createModuleFile(path, fileName);
+                notificationService.notify(NotificationDisplayType.TOOL_WINDOW, "创建Markdown文件：" + fileName, NotificationType.INFORMATION);
             } catch (IOException e) {
                 logger.error("create markdown file error: {}", markdownPath, e);
             }

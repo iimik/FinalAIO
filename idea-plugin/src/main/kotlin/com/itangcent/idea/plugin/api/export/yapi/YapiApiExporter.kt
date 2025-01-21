@@ -42,7 +42,7 @@ class YapiApiExporter : AbstractYapiApiExporter() {
 
         val docs = classApiExporterHelper.export()
         docs.forEach { doc ->exportDoc(doc)}
-        Notifications.Bus.notify(Notification("Final Api Group", "导出到Yapi接口:${docs.size}个", NotificationType.INFORMATION), project)
+        Notifications.Bus.notify(Notification("FINAL_AIO_TOOL_WINDOW", "导出到Yapi接口:${docs.size}个", NotificationType.INFORMATION), project)
 //        var anyFound = false
 //        classApiExporterHelper.export {
 //            anyFound = true
