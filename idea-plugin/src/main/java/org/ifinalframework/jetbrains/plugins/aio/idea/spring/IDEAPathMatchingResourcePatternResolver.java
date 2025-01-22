@@ -23,7 +23,7 @@ import java.util.zip.ZipException;
  * IDEAPathMatchingResourcePatternResolver
  *
  * @author iimik
- * @since 1.6.0
+ * @since 0.0.1
  **/
 @Slf4j
 public class IDEAPathMatchingResourcePatternResolver extends PathMatchingResourcePatternResolver {

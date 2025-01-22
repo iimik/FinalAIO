@@ -3,6 +3,7 @@ package org.ifinalframework.jetbrains.plugins.aio.application;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ifinalframework.jetbrains.plugins.aio.application.annotation.ElementApplication;
+import org.ifinalframework.jetbrains.plugins.aio.core.annotation.LanguageSpi;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProce
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigRegistry;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+
+import java.util.Objects;
 
 /**
  * ElementApplicationBeanFactoryPostProcessor
@@ -34,13 +37,26 @@ public class ElementApplicationBeanFactoryPostProcessor implements BeanDefinitio
                 final ElementApplication annotation = AnnotatedElementUtils.getMergedAnnotation(beanClass, ElementApplication.class);
                 if (annotation != null) {
                     final Class<?>[] components = annotation.components();
-                    if (components.length > 0) {
-                        if (registry instanceof AnnotationConfigRegistry annotationConfigRegistry) {
-                            annotationConfigRegistry.register(components);
+                    for (Class<?> component : components) {
+                        final LanguageSpi languageSpi = component.getAnnotation(LanguageSpi.class);
+                        if (Objects.isNull(languageSpi)) {
+                            if (registry instanceof AnnotationConfigRegistry annotationConfigRegistry) {
+                                annotationConfigRegistry.register(component);
+                            } else {
+                                reader.register(component);
+                            }
                         } else {
-                            reader.register(components);
+                            final Class<?>[] classes = languageSpi.value();
+                            if (registry instanceof AnnotationConfigRegistry annotationConfigRegistry) {
+                                annotationConfigRegistry.register(classes);
+                            } else {
+                                reader.register(classes);
+                            }
                         }
+
                     }
+
+
                 }
             }
         }

@@ -16,7 +16,7 @@ import java.util.List;
  * DefaultApiParser
  *
  * @author iimik
- * @since 1.6.0
+ * @since 0.0.1
  **/
 public class DefaultApiParser implements ApiParser {
 

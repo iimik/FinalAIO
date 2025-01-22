@@ -1,3 +1,6 @@
 # EnvironmentPostProcessor
 org.springframework.boot.env.EnvironmentPostProcessor=\
 org.ifinalframework.jetbrains.plugins.aio.spring.env.ElementEnvironmentPostProcessor
+org.ifinalframework.jetbrains.plugins.aio.service.DocTagService=\
+org.ifinalframework.jetbrains.plugins.aio.service.JavaDocTagService\
+org.ifinalframework.jetbrains.plugins.aio.service.KotlinDocTagService

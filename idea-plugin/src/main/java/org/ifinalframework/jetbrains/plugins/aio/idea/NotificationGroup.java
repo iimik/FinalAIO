@@ -5,7 +5,7 @@ package org.ifinalframework.jetbrains.plugins.aio.idea;
  * NotificationGroup
  *
  * @author iimik
- * @since 1.6.0
+ * @since 0.0.1
  **/
 public enum NotificationGroup {
     FINAL_AIO

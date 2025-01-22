@@ -30,6 +30,7 @@
         <notificationGroup displayType="STICKY_BALLOON" id="FINAL_AIO_STICKY_BALLOON"/>
         <notificationGroup displayType="TOOL_WINDOW" id="FINAL_AIO_TOOL_WINDOW"/>
         <codeInsight.lineMarkerProvider language="JAVA" implementationClass="org.ifinalframework.jetbrains.plugins.aio.api.markdown.MarkdownLineMarkerProvider"/>
-        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="org.ifinalframework.jetbrains.plugins.aio.issue.IssueLineMarkerProvider"/>
+        <codeInsight.lineMarkerProvider language="UAST" implementationClass="org.ifinalframework.jetbrains.plugins.aio.issue.IssueLineMarkerProvider"/>
+        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="org.ifinalframework.jetbrains.plugins.aio.api.open.OpenApiLinerMarkerProvider"/>
     </extensions>
 </idea-plugin>

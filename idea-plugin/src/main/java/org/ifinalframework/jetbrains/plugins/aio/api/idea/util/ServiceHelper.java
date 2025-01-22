@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * ServiceHelper
  *
  * @author iimik
- * @since 1.6.0
+ * @since 0.0.1
  **/
 public class ServiceHelper {
     private static final Map<Class, Object> cache = new ConcurrentHashMap<>();

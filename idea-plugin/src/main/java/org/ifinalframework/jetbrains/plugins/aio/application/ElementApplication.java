@@ -29,6 +29,7 @@ public class ElementApplication {
     private final PsiElement element;
 
     public void run(String... args) {
+        final String lang = element.getLanguage().getID().toLowerCase();
         final Module module = ModuleUtil.findModuleForPsiElement(element);
         final Project project = element.getProject();
 
@@ -37,6 +38,7 @@ public class ElementApplication {
             final ClassLoader classLoader = AopConfigException.class.getClassLoader();
             final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
             context.setClassLoader(classLoader);
+            System.setProperty("final.language", lang);
             final ElementEnvironment environment = new ElementEnvironment();
             environment.load(classLoader, element);
             context.setEnvironment(environment);

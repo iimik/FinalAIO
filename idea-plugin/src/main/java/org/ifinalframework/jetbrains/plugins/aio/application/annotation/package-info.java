@@ -2,7 +2,7 @@
  * package-info
  *
  * @author iimik
- * @since 1.6.0
+ * @since 0.0.1
  * @issue 4
  **/
 package org.ifinalframework.jetbrains.plugins.aio.application.annotation;

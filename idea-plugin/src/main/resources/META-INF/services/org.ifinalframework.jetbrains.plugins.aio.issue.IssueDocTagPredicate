@@ -1,0 +1,2 @@
+org.ifinalframework.jetbrains.plugins.aio.issue.JavaIssueDocTagPredicate
+org.ifinalframework.jetbrains.plugins.aio.issue.KotlinIssueDocTagPredicate

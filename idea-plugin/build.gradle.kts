@@ -33,6 +33,7 @@ dependencies {
     // spring boot
     implementation("org.springframework.boot:spring-boot-starter:${properties["spring.boot.version"]}")
     implementation("org.springframework.boot:spring-boot-starter-aop:${properties["spring.boot.version"]}")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.2.0")
     testImplementation("org.springframework.boot:spring-boot-starter-web:${properties["spring.boot.version"]}")
     testImplementation("org.springframework.boot:spring-boot-starter-test:${properties["spring.boot.version"]}")
 
@@ -121,7 +122,7 @@ intellij {
     type.set("IC")
     pluginName.set("final-aio")
     sandboxDir.set("idea-sandbox")
-    plugins.set(listOf("java", "maven", "gradle"))
+    plugins.set(listOf("java", "maven", "gradle", "Kotlin"))
 }
 
 tasks {

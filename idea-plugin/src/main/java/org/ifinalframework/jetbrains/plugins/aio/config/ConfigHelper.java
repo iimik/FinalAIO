@@ -14,7 +14,7 @@ import java.util.List;
  * ConfigHelper
  *
  * @author iimik
- * @since 1.6.0
+ * @since 0.0.1
  **/
 @ImplementedBy(DefaultConfigHelper.class)
 public interface ConfigHelper {

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * UrlResourceTest
  *
  * @author iimik
- * @since 1.6.0
+ * @since 0.0.1
  **/
 class UrlResourceTest {
 

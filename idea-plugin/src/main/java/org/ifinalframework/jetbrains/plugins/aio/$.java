@@ -14,6 +14,7 @@ import org.ifinalframework.jetbrains.plugins.aio.application.ElementApplication;
  * $
  *
  * @author iimik
+ * @see <a href="https://plugins.jetbrains.com/docs/intellij/threading-model.html#read-write-lock>Threading Model</a>
  * @since 0.0.1
  **/
 public class $ {
@@ -21,6 +22,7 @@ public class $ {
     public static final class read {
         @SneakyThrows
         public static void run(ThrowableRunnable<Throwable> runnable) {
+
             ReadAction.run(runnable);
         }
 
