@@ -27,7 +27,7 @@ import com.itangcent.intellij.extend.guice.with
 import com.itangcent.intellij.file.DefaultLocalFileRepository
 import com.itangcent.intellij.file.LocalFileRepository
 import com.itangcent.intellij.jvm.PsiClassHelper
-import org.ifinalframework.jetbrains.plugins.aio.api.idea.yapi.YapiOpener
+import org.ifinalframework.jetbrains.plugins.aio.api.yapi.YapiOpener
 import javax.swing.Icon
 
 

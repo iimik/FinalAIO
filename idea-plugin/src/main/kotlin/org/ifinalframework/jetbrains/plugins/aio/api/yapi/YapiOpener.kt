@@ -1,4 +1,4 @@
-package org.ifinalframework.jetbrains.plugins.aio.api.idea.yapi;
+package org.ifinalframework.jetbrains.plugins.aio.api.yapi;
 
 import com.google.inject.Inject
 import com.google.inject.Singleton
