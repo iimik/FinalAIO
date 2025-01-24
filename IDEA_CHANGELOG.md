@@ -1,4 +1,4 @@
-* 0.0.1-beta
+* 0.0.1[](https://)
   * Issue
     * 【功能】支持在文档注释中`@issue`和`@jira`标签打开对应的Git Issue和Jira链接 ([#3](https://github.com/iimik/FinalAIO/issues/3))
   * Api
