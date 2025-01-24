@@ -60,7 +60,7 @@ class JavaDocService : DocService {
     }
 
     override fun getLineComment(element: PsiElement): String? {
-        return if (element is PsiComment) {
+        return if (element !is PsiDocComment && element is PsiComment) {
             element.text
         } else null
     }
