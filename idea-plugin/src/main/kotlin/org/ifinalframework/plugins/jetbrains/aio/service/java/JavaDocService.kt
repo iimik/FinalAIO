@@ -1,9 +1,6 @@
 package org.ifinalframework.plugins.jetbrains.aio.service.java;
 
-import com.intellij.psi.PsiClass
-import com.intellij.psi.PsiDocCommentOwner
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiMethod
+import com.intellij.psi.*
 import com.intellij.psi.javadoc.PsiDocComment
 import com.intellij.psi.javadoc.PsiDocTag
 import com.itangcent.common.utils.firstOrNull
@@ -59,6 +56,12 @@ class JavaDocService : DocService {
     override fun getTagValue(element: PsiElement): String? {
         return if (element is PsiDocTag) {
             element.valueElement!!.text.trim()
+        } else null
+    }
+
+    override fun getLineComment(element: PsiElement): String? {
+        return if (element is PsiComment) {
+            element.text
         } else null
     }
 }

@@ -1,8 +1,10 @@
 package org.ifinalframework.plugins.jetbrains.aio.service.kotlin;
 
+import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiElement
 import org.ifinalframework.plugins.jetbrains.aio.application.condition.ConditionOnKotlin
 import org.ifinalframework.plugins.jetbrains.aio.service.DocService
+import org.jetbrains.kotlin.kdoc.psi.api.KDocElement
 import org.jetbrains.kotlin.kdoc.psi.impl.KDocTag
 import org.jetbrains.kotlin.psi.KtDeclaration
 import org.springframework.stereotype.Component
@@ -44,6 +46,12 @@ class KotlinDocService : DocService {
     override fun getTagValue(element: PsiElement): String? {
         return if (element is KDocTag) {
             element.getContent().trim()
+        } else null
+    }
+
+    override fun getLineComment(element: PsiElement): String? {
+        return if (element !is KDocElement && element is PsiComment) {
+            element.text.replace("//","").trimStart()
         } else null
     }
 }

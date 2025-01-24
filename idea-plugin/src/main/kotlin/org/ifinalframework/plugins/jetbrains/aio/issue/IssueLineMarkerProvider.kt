@@ -2,6 +2,7 @@ package org.ifinalframework.plugins.jetbrains.aio.issue;
 
 import com.intellij.codeInsight.daemon.LineMarkerInfo
 import com.intellij.codeInsight.daemon.LineMarkerProvider
+import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import org.ifinalframework.plugins.jetbrains.aio.`$`
@@ -26,12 +27,19 @@ import java.awt.event.MouseEvent
  **/
 class IssueLineMarkerProvider : LineMarkerProvider {
 
-    private val docService = SpiUtil.languageSpi(DocService::class)
+    private val issueService = DefaultIssueService(SpiUtil.languageSpi(DocService::class))
 
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
-        val tagName = docService.getTagName(element) ?: return null
-        val issueType = IssueType.ofNullable(tagName) ?: return null
-        val builder = NavigationGutterIconBuilder.create(issueType.icon)
+        issueService.getIssue(element)?.let { issue ->
+            return buildIssueLineMarkerInfo(issue, element)
+        }
+        return null;
+
+    }
+
+
+    private fun buildIssueLineMarkerInfo(issue: Issue, element: PsiElement): RelatedItemLineMarkerInfo<PsiElement> {
+        val builder = NavigationGutterIconBuilder.create(issue.type.icon)
         builder.setTargets(element)
         builder.setTooltipText("Open issue in Browser!")
         return builder.createLineMarkerInfo(
@@ -41,6 +49,6 @@ class IssueLineMarkerProvider : LineMarkerProvider {
                 IssueLineMarkerApplication::class.java, element
             )
         }
-
     }
+
 }

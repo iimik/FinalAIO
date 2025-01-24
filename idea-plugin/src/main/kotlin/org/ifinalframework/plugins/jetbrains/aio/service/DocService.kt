@@ -17,11 +17,13 @@ import org.ifinalframework.plugins.jetbrains.aio.service.kotlin.KotlinDocService
     KotlinDocService::class
 )
 interface DocService {
-    fun isDocTag(element: PsiElement): Boolean
+    fun isDocTag(element: PsiElement): Boolean?
 
     fun getHeadline(element: PsiElement): String?
 
     fun getTagName(element: PsiElement): String?
 
     fun getTagValue(element: PsiElement): String?
+
+    fun getLineComment(element: PsiElement): String?
 }

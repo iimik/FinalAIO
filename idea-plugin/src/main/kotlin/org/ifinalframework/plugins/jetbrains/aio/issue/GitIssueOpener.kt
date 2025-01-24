@@ -1,9 +1,6 @@
 package org.ifinalframework.plugins.jetbrains.aio.issue;
 
 import com.intellij.psi.PsiElement
-import org.ifinalframework.plugins.jetbrains.aio.application.ElementHandler
-import org.ifinalframework.plugins.jetbrains.aio.browser.BrowserOpener
-import org.ifinalframework.plugins.jetbrains.aio.git.GitHelper
 import org.ifinalframework.plugins.jetbrains.aio.service.DocService
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
@@ -14,10 +11,14 @@ import javax.annotation.Resource
  *
  * @author iimik
  * @since 0.0.1
- * @see JiraIssueHandler
+ * @see JiraIssueOpener
  **/
 @Component
-class GitIssueHandler : org.ifinalframework.plugins.jetbrains.aio.application.ElementHandler {
+class GitIssueOpener : IssueOpener {
+
+    @Resource
+    private lateinit var element: PsiElement
+
     /**
      * 浏览器打开工具
      */
@@ -27,17 +28,17 @@ class GitIssueHandler : org.ifinalframework.plugins.jetbrains.aio.application.El
     @Resource
     private lateinit var docService: DocService
 
+    override fun supported(issueType: IssueType): Boolean {
+        return IssueType.ISSUE == issueType
+    }
 
     @Resource
     private lateinit var gitHelper: org.ifinalframework.plugins.jetbrains.aio.git.GitHelper
 
-    override fun handle(element: PsiElement) {
-        val tagName = docService!!.getTagName(element) ?: return
-        IssueType.ofNullable(tagName) ?: return
-        val tagValue = docService!!.getTagValue(element) ?: return
 
-        val issuesUrl = gitHelper!!.getIssuesUrl(element, tagValue)
-
+    override fun open(issue: Issue) {
+        val issuesUrl = gitHelper.getIssuesUrl(element, issue.code)
         browserOpener!!.open(issuesUrl)
     }
+
 }
