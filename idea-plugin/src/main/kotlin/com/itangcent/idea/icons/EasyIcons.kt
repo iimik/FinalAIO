@@ -166,7 +166,7 @@ interface IconLoader {
 
 object DefaultIconLoader : IconLoader {
     override fun findIcon(path: String, aClass: Class<*>): Icon? {
-        return com.intellij.openapi.util.IconLoader.findIcon(path, aClass)
+        return com.intellij.openapi.util.IconLoader.getIcon(path, aClass)
     }
 
     override fun findIcon(url: URL?): Icon? {

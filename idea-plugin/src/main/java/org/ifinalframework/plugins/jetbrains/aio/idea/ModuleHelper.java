@@ -5,8 +5,6 @@ import com.google.inject.ImplementedBy;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.psi.PsiElement;
-
-import org.gradle.internal.impldep.org.eclipse.jgit.annotations.NonNull;
 import org.ifinalframework.plugins.jetbrains.aio.application.annotation.ReadAction;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,6 +23,6 @@ public interface ModuleHelper {
     }
 
     @ReadAction
-    String getBasePath(@NonNull Module module);
+    String getBasePath(@NotNull Module module);
 
 }
