@@ -1,0 +1,2 @@
+org.ifinalframework.plugins.jetbrains.aio.service.java.JavaElementService
+org.ifinalframework.plugins.jetbrains.aio.service.kotlin.KotlinElementService

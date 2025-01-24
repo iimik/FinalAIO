@@ -16,7 +16,7 @@ import com.itangcent.intellij.config.ConfigReader
 import com.itangcent.intellij.config.rule.RuleComputer
 import com.itangcent.intellij.context.ActionContext
 import com.itangcent.intellij.logger.Logger
-import org.ifinalframework.jetbrains.plugins.aio.api.config.YapiConfigConstants
+import org.ifinalframework.plugins.jetbrains.aio.api.config.YapiConfigConstants
 
 
 open class AbstractYapiApiExporter {
@@ -64,7 +64,7 @@ open class AbstractYapiApiExporter {
      * see https://hellosean1025.github.io/yapi/openapi.html
      */
     protected open fun getTokenOfModule(module: String): String? {
-        val token = configReader.first(YapiConfigConstants.TOKEN);
+        val token = configReader.first(org.ifinalframework.plugins.jetbrains.aio.api.config.YapiConfigConstants.TOKEN);
 
         if(token.isNullOrBlank()){
             logger.warn("Yapi token is missing in module $module")

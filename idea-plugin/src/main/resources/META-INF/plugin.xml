@@ -1,7 +1,7 @@
 <idea-plugin>
-    <id>org.ifinalframework.jetbrains.plugins.aio</id>
+    <id>org.ifinalframework.plugins.jetbrains.aio</id>
     <name>Final AIO</name>
-    <version>0.0.1-beta</version>
+    <version>0.0.1</version>
     <vendor email="iimik@qq.com" url="https://github.com/iimik">米克¹²³</vendor>
 
     <description><![CDATA[ Description will be added by gradle build]]></description>
@@ -24,13 +24,11 @@
     <!--<depends optional="true">com.intellij.modules.idea</depends>-->
 
     <depends optional="true" config-file="easy-api-kotlin.xml">org.jetbrains.kotlin</depends>
-    <depends optional="true" config-file="easy-api-scala.xml">org.intellij.scala</depends>
     <extensions defaultExtensionNs="com.intellij">
         <notificationGroup displayType="BALLOON" id="FINAL_AIO_BALLOON"/>
         <notificationGroup displayType="STICKY_BALLOON" id="FINAL_AIO_STICKY_BALLOON"/>
         <notificationGroup displayType="TOOL_WINDOW" id="FINAL_AIO_TOOL_WINDOW"/>
-        <codeInsight.lineMarkerProvider language="UAST" implementationClass="org.ifinalframework.jetbrains.plugins.aio.api.markdown.MarkdownLineMarkerProvider"/>
-        <codeInsight.lineMarkerProvider language="UAST" implementationClass="org.ifinalframework.jetbrains.plugins.aio.issue.IssueLineMarkerProvider"/>
-        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="org.ifinalframework.jetbrains.plugins.aio.api.open.OpenApiLinerMarkerProvider"/>
+        <codeInsight.lineMarkerProvider language="UAST" implementationClass="org.ifinalframework.plugins.jetbrains.aio.api.markdown.MarkdownLineMarkerProvider"/>
+        <codeInsight.lineMarkerProvider language="UAST" implementationClass="org.ifinalframework.plugins.jetbrains.aio.issue.IssueLineMarkerProvider"/>
     </extensions>
 </idea-plugin>

@@ -1,0 +1,2 @@
+org.ifinalframework.plugins.jetbrains.aio.service.java.JavaDocService
+org.ifinalframework.plugins.jetbrains.aio.service.kotlin.KotlinDocService
