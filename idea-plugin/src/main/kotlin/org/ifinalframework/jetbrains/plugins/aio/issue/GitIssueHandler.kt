@@ -4,7 +4,7 @@ import com.intellij.psi.PsiElement
 import org.ifinalframework.jetbrains.plugins.aio.application.ElementHandler
 import org.ifinalframework.jetbrains.plugins.aio.browser.BrowserOpener
 import org.ifinalframework.jetbrains.plugins.aio.git.GitHelper
-import org.ifinalframework.jetbrains.plugins.aio.service.DocTagService
+import org.ifinalframework.jetbrains.plugins.aio.service.DocService
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
 
@@ -25,16 +25,16 @@ class GitIssueHandler : ElementHandler {
     private lateinit var browserOpener: BrowserOpener
 
     @Resource
-    private lateinit var docTagService: DocTagService
+    private lateinit var docService: DocService
 
 
     @Resource
     private lateinit var gitHelper: GitHelper
 
     override fun handle(element: PsiElement) {
-        val tagName = docTagService!!.getTagName(element) ?: return
+        val tagName = docService!!.getTagName(element) ?: return
         IssueType.ofNullable(tagName) ?: return
-        val tagValue = docTagService!!.getTagValue(element) ?: return
+        val tagValue = docService!!.getTagValue(element) ?: return
 
         val issuesUrl = gitHelper!!.getIssuesUrl(element, tagValue)
 

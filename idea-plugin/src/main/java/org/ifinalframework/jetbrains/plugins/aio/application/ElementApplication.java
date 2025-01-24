@@ -34,42 +34,51 @@ public class ElementApplication {
         final Project project = element.getProject();
 
         $.async(() -> {
-            //fix: 启动报 ClassNotFoundException AopConfigException
-            final ClassLoader classLoader = AopConfigException.class.getClassLoader();
-            final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-            context.setClassLoader(classLoader);
-            System.setProperty("final.language", lang);
-            final ElementEnvironment environment = new ElementEnvironment();
-            environment.load(classLoader, element);
-            context.setEnvironment(environment);
-            // bean factory post processor
-            context.addBeanFactoryPostProcessor(new ElementApplicationBeanFactoryPostProcessor());
-            // element components
-            context.registerBean("element", PsiElement.class, () -> element);
-            context.registerBean("module", Module.class, () -> module);
-            context.registerBean("project", Project.class, () -> project);
-            // primarySources
-            context.register(primarySources.toArray(new Class<?>[0]));
-            // aop
-            context.register(AopConfig.class);
-            // refresh
-            context.refresh();
+            try {
+                //fix: 启动报 ClassNotFoundException AopConfigException
+                final ClassLoader classLoader = AopConfigException.class.getClassLoader();
+                final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+                context.setClassLoader(classLoader);
+                System.setProperty("final.language", lang);
+                final ElementEnvironment environment = new ElementEnvironment();
+                environment.load(classLoader, element);
+                context.setEnvironment(environment);
+                // bean factory post processor
+                context.addBeanFactoryPostProcessor(new ElementApplicationBeanFactoryPostProcessor());
+                // element components
+                context.registerBean("element", PsiElement.class, () -> element);
+                context.registerBean("module", Module.class, () -> module);
+                context.registerBean("project", Project.class, () -> project);
+                // primarySources
+                context.register(primarySources.toArray(new Class<?>[0]));
+                // aop
+                context.register(AopConfig.class);
+                // jackson
+                // feign
+//                context.register(FeignClientsConfiguration.class);
+//                context.register(HttpMessageConvertersAutoConfiguration.class);
+//                context.register(FeignAutoConfiguration.class);
+                // refresh
+                context.refresh();
 
-            // handle
-            final List<ElementHandler> elementHandlers = context.getBeanProvider(ElementHandler.class).stream().collect(Collectors.toList());
+                // handle
+                final List<ElementHandler> elementHandlers = context.getBeanProvider(ElementHandler.class).stream().collect(Collectors.toList());
 
-            if (elementHandlers.isEmpty()) {
-                logger.warn("not found handlers for application: {}", primarySources);
-                return;
-            }
-
-            elementHandlers.forEach(handler -> {
-                try {
-                    handler.handle(element);
-                } catch (Exception e) {
-                    logger.error(e.getMessage(), e);
+                if (elementHandlers.isEmpty()) {
+                    logger.warn("not found handlers for application: {}", primarySources);
+                    return;
                 }
-            });
+
+                elementHandlers.forEach(handler -> {
+                    try {
+                        handler.handle(element);
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                    }
+                });
+            } catch (Exception e) {
+                logger.error("处理异常：", e);
+            }
         });
 
 

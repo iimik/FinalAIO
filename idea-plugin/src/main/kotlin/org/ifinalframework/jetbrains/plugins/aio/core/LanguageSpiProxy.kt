@@ -14,6 +14,7 @@ import java.util.*
  * @since 0.0.1
  **/
 class LanguageSpiProxy : InvocationHandler {
+
     private val services: Map<String, Any>
 
     constructor(services: Map<String, Any>) {
@@ -28,7 +29,7 @@ class LanguageSpiProxy : InvocationHandler {
 
         val language = element.language.id.lowercase()
 
-        val service = services[language] ?: return null;
+        val service = services[language] ?: services["uast"] ?: return null;
         return method?.invoke(service, *args!!)
 
     }

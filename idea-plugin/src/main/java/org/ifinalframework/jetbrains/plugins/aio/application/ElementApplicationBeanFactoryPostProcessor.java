@@ -36,7 +36,7 @@ public class ElementApplicationBeanFactoryPostProcessor implements BeanDefinitio
                 final Class<?> beanClass = definition.getBeanClass();
                 final ElementApplication annotation = AnnotatedElementUtils.getMergedAnnotation(beanClass, ElementApplication.class);
                 if (annotation != null) {
-                    final Class<?>[] components = annotation.components();
+                    final Class<?>[] components = annotation.value();
                     for (Class<?> component : components) {
                         final LanguageSpi languageSpi = component.getAnnotation(LanguageSpi.class);
                         if (Objects.isNull(languageSpi)) {

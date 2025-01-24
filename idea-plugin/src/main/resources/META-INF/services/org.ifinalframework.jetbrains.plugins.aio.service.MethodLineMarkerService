@@ -1,0 +1,2 @@
+org.ifinalframework.jetbrains.plugins.aio.service.java.JavaMethodLineMarkerService
+org.ifinalframework.jetbrains.plugins.aio.service.kotlin.KotlinMethodLineMarkerService

@@ -134,4 +134,8 @@ tasks {
         sinceBuild.set(intellijSince)
         untilBuild.set("")
     }
+
+    runIde {
+        jvmArgs("-Xmx4096m")
+    }
 }

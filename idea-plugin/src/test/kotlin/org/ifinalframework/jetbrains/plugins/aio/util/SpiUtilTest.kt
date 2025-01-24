@@ -1,7 +1,7 @@
 package org.ifinalframework.jetbrains.plugins.aio.util
 
 import org.ifinalframework.jetbrains.plugins.aio.issue.IssueDocTagPredicate
-import org.ifinalframework.jetbrains.plugins.aio.service.DocTagService
+import org.ifinalframework.jetbrains.plugins.aio.service.DocService
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 
@@ -21,7 +21,7 @@ class SpiUtilTest {
 
     @Test
     fun languageSpi(){
-        val service = SpiUtil.languageSpi(DocTagService::class)
+        val service = SpiUtil.languageSpi(DocService::class)
         assertNotNull(service)
     }
 }

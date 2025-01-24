@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils
 import org.ifinalframework.jetbrains.plugins.aio.application.ElementHandler
 import org.ifinalframework.jetbrains.plugins.aio.browser.BrowserOpener
 import org.ifinalframework.jetbrains.plugins.aio.jira.JiraProperties
-import org.ifinalframework.jetbrains.plugins.aio.service.DocTagService
+import org.ifinalframework.jetbrains.plugins.aio.service.DocService
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component
 import javax.annotation.Resource
@@ -31,7 +31,7 @@ class JiraIssueHandler : ElementHandler {
     private lateinit var browserOpener: BrowserOpener
 
     @Resource
-    private lateinit var docTagService: DocTagService
+    private lateinit var docService: DocService
 
     override fun handle(element: PsiElement) {
 
@@ -39,10 +39,10 @@ class JiraIssueHandler : ElementHandler {
             return
         }
 
-        val tagName = docTagService.getTagName(element)
+        val tagName = docService.getTagName(element)
         IssueType.ofNullable(tagName) ?: return
 
-        val value = docTagService!!.getTagValue(element)
+        val value = docService!!.getTagValue(element)
         val issuesUrl = properties!!.serverUrl + "/browse/" + properties!!.projectCode + "-" + value
         browserOpener!!.open(issuesUrl)
     }

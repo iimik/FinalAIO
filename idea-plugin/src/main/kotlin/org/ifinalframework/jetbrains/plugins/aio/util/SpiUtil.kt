@@ -23,7 +23,11 @@ class SpiUtil {
                 .forEach(Consumer { item ->
                     val clazz = item.javaClass
                     val annotation = AnnotatedElementUtils.getMergedAnnotation(clazz, ConditionOnLanguage::class.java)
-                    val language = annotation.value.lowercase()
+                    val language = if (Objects.nonNull(annotation)) {
+                        annotation.value.lowercase()
+                    } else {
+                        "uast"
+                    }
                     result[language] = item
                 })
             return result

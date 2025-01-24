@@ -6,7 +6,7 @@ import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import org.ifinalframework.jetbrains.plugins.aio.Icons
-import org.ifinalframework.jetbrains.plugins.aio.util.ElementExt.isMethodLine
+import org.ifinalframework.jetbrains.plugins.aio.util.ElementKt.isMethodLine
 
 
 /**

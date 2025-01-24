@@ -3,7 +3,7 @@ package org.ifinalframework.jetbrains.plugins.aio.issue;
 import org.ifinalframework.jetbrains.plugins.aio.application.annotation.ElementApplication
 import org.ifinalframework.jetbrains.plugins.aio.browser.DefaultBrowserOpener
 import org.ifinalframework.jetbrains.plugins.aio.git.DefaultGitHelper
-import org.ifinalframework.jetbrains.plugins.aio.service.DocTagService
+import org.ifinalframework.jetbrains.plugins.aio.service.DocService
 
 /**
  * IssueLineMarker 应用。
@@ -17,11 +17,13 @@ import org.ifinalframework.jetbrains.plugins.aio.service.DocTagService
  * @since 0.0.1
  **/
 @ElementApplication(
-    GitIssueHandler::class,
-    JiraIssueHandler::class,
-    DefaultBrowserOpener::class,
-    DefaultGitHelper::class,
-    DocTagService::class
+    [
+        GitIssueHandler::class,
+        JiraIssueHandler::class,
+        DefaultBrowserOpener::class,
+        DefaultGitHelper::class,
+        DocService::class
+    ]
 )
 class IssueLineMarkerApplication {
 }

@@ -5,13 +5,20 @@ import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import org.ifinalframework.jetbrains.plugins.aio.`$`
-import org.ifinalframework.jetbrains.plugins.aio.service.DocTagService
+import org.ifinalframework.jetbrains.plugins.aio.service.DocService
 import org.ifinalframework.jetbrains.plugins.aio.util.SpiUtil
 import java.awt.event.MouseEvent
 
 
 /**
- * IssueLineMarkerProvider
+ * Issue 行标记
+ *
+ * 对特定的文档标签添加Issue行标记，通过点击可以快速在浏览器中打开对应的URL。
+ *
+ * **支持的文档标签如下：**
+ *
+ * * `@jira`：Jira 项目管理
+ * * `@issue`： Git Issue 管理，如 github.com。
  *
  * @issue 3
  * @author iimik
@@ -19,10 +26,10 @@ import java.awt.event.MouseEvent
  **/
 class IssueLineMarkerProvider : LineMarkerProvider {
 
-    private val docTagService = SpiUtil.languageSpi(DocTagService::class)
+    private val docService = SpiUtil.languageSpi(DocService::class)
 
     override fun getLineMarkerInfo(element: PsiElement): LineMarkerInfo<*>? {
-        val tagName = docTagService.getTagName(element) ?: return null
+        val tagName = docService.getTagName(element) ?: return null
         val issueType = IssueType.ofNullable(tagName) ?: return null
         val builder = NavigationGutterIconBuilder.create(issueType.icon)
         builder.setTargets(element)
