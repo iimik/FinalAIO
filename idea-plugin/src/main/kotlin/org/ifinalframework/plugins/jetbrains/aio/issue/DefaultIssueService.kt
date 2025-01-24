@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
  *
  * @issue 11
  * @author iimik
- * @since 0.0.2
+ * @since 0.0.1
  **/
 @Component
 class DefaultIssueService(

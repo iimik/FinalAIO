@@ -16,7 +16,7 @@ enum class IssueType(
     val icon: Icon,
 ) {
     ISSUE(IconLoader.getIcon("/assets/git.svg", org.ifinalframework.plugins.jetbrains.aio.icon.Icons::class.java)),
-    JIRA(IconLoader.getIcon("/assets/git.svg", org.ifinalframework.plugins.jetbrains.aio.icon.Icons::class.java));
+    JIRA(IconLoader.getIcon("/assets/jira.svg", org.ifinalframework.plugins.jetbrains.aio.icon.Icons::class.java));
 
     companion object {
         fun ofNullable(name: String?): IssueType? {
